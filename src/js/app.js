@@ -32,12 +32,23 @@ class Product {
 }
 
 class CartItem {
-  constructor(product, count) {
+  constructor(product, count = 1) {
     this.item = product;
     this.count = count;
-    this.total = product.hasDiscount
-      ? product.discountPrice * count
-      : product.price * count;
+    this.total = this.getTotal();
+  }
+
+  updateCount(newCount) {
+    this.count = newCount;
+    this.total = this.getTotal();
+  }
+
+  getTotal() {
+    const total = this.item.hasDiscount
+      ? this.item.discountPrice * this.count
+      : this.item.price * this.count;
+
+    return total;
   }
 }
 
