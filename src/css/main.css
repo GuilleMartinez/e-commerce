@@ -1,0 +1,226 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Helvetica, sans-serif;
+  background-color: var(--font-content-color) smoke;
+  font-size: 62.5%;
+  word-wrap: break-word;
+  --main-color: rgb(60, 60, 60);
+  --font-content-color: rgb(255, 255, 255);
+  --product-size: 28rem;
+  --gap: 1rem;
+  --product-btn-size: 3rem;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+header {
+  background-color: var(--main-color);
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  color: var(--font-content-color) smoke;
+}
+
+.logo {
+  font-size: 3rem;
+  color: var(--font-content-color);
+  margin-left: 1rem;
+}
+
+/*Formulario de búsqueda*/
+
+.search-section {
+  height: 45rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../img/search-background.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.search-section form {
+  width: 50%;
+}
+
+.main-title {
+  width: 50%;
+  background-color: rgba(60, 60, 60, 0.9);
+  color: var(--font-content-color);
+  padding: 1rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+input[type="search"] {
+  height: 4.5rem;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease, font-size 0.3s ease;
+  border: none;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+input[type="search"]:focus {
+  background-color: var(--main-color);
+  color: var(--font-content-color);
+  font-size: large;
+}
+
+/* Tamaño de fuentes */
+
+.title {
+  text-align: center;
+  font-family: Verdana, sans-serif;
+}
+
+.main-title {
+  font-size: 3rem;
+}
+
+.secondary-title {
+  font-size: 2.5rem;
+}
+
+.product-title {
+  font-size: 1.7rem;
+}
+
+.product-price {
+  font-size: 1.6rem;
+}
+
+.btn {
+  font-size: 3rem;
+}
+
+main {
+  display: grid;
+  grid-row-gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+/* Productos */
+
+.all-products {
+  text-align: center;
+}
+
+.products {
+  display: grid;
+  list-style: none;
+  grid-template-columns: repeat(auto-fit, var(--product-size));
+  grid-gap: var(--gap);
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product {
+  width: var(--product-size);
+  height: var(--product-size);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 0.1rem solid var(--main-color);
+}
+
+.product figure {
+  display: block;
+  width: var(--product-size);
+  height: calc(var(--product-size) * 0.8);
+}
+
+.product-img {
+  display: block;
+  height: calc(90% - 2rem);
+  width: calc(100% - 2rem);
+  margin: 1rem;
+  object-fit: cover;
+}
+
+.product-info {
+  height: calc(var(--product-size) * 0.15);
+  width: var(--product-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prices {
+  text-align: center;
+  flex-basis: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-price {
+  width: 4rem;
+  display: inline-block;
+  height: var(--product-btn-size);
+  line-height: var(--product-btn-size);
+}
+
+.product-price:only-child {
+  width: 100%;
+}
+
+.buttons {
+  flex-basis: calc(var(--product-btn-size) * 3 + var(--gap));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn {
+  height: var(--product-btn-size);
+  width: var(--product-btn-size);
+  line-height: var(--product-btn-size);
+  background-color: transparent;
+  border: none;
+}
+
+.item-count {
+  width: calc(var(--product-btn-size) * 2);
+  height: var(--product-btn-size);
+  text-align: center;
+}
+
+.add-cart-btn:hover {
+  color: green;
+}
+
+.discount-amount {
+  --width: 5rem;
+  --height: 2.5rem;
+  position: absolute;
+  bottom: calc(var(--product-size) - 0.5rem - var(--height));
+  left: calc(var(--product-size) - 0.5rem - var(--width));
+  background-color: gold;
+  color: var(--main-color);
+  padding: 0.25rem;
+  width: var(--width);
+  height: var(--height);
+  font-size: 1.5rem;
+  border-radius: 1rem;
+}
+
+@media (max-width: 600px) {
+  .main-title,
+  .search-section form {
+    width: 95%;
+  }
+}
