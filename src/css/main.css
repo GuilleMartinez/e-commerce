@@ -93,7 +93,7 @@ input[type="search"]:focus {
   font-size: 2.5rem;
 }
 
-.product-title {
+.product-caption {
   font-size: 1.7rem;
 }
 
@@ -117,7 +117,7 @@ main {
   text-align: center;
 }
 
-.products {
+#products {
   display: grid;
   list-style: none;
   grid-template-columns: repeat(auto-fit, var(--product-size));
@@ -223,4 +223,32 @@ main {
   .search-section form {
     width: 95%;
   }
+}
+
+table {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 10em;
+  max-width: 50rem;
+  text-align: center;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+tr {
+  display: flex;
+  align-items: center;  
+  font-size: 1.3rem;
+}
+
+th,td {
+  flex-basis: 33.3%;
+  border-bottom: 1px solid;
+  padding: 0.5rem;
+}
+
+tfoot {
+  margin-top: 1rem;
+  margin-left: auto;
 }
