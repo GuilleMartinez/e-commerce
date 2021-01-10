@@ -61,6 +61,7 @@ class ShoppingCart {
     const tbody = document.getElementById('cart-info');
     const cartTotal = document.getElementById('cart-total');
     const itemsCount = document.getElementById('cart-items-count');
+    const countIcon = document.getElementById('count-icon');
 
     const {total, count } = this.calculateTotal();
 
@@ -85,7 +86,9 @@ class ShoppingCart {
     }) 
 
     itemsCount.textContent = `Total de elementos en carrito: ${count}`;
+    countIcon.textContent = count;
     cartTotal.textContent = `Total a pagar: $${total}`;
+
 
   }
 

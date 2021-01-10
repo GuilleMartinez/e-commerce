@@ -12,7 +12,11 @@
 
 <body>
   <header>
-    <a class="logo" href="#"> <i class="fas fa-images"></i></a>
+    <a class="icon logo" href="#"><i class="fas fa-leaf"></i></a>
+    <button onclick="showCart()" aria-label="go to cart" id="cart-icon" class="icon" href="#shopping-cart" class="shopping-btn">
+      <i class="fas fa-shopping-cart"></i>
+      <b id="count-icon"></b>
+    </button>
   </header>
 
   <main>
@@ -34,7 +38,7 @@
       <ul id="products"></ul>
     </section>
 
-    <section>
+    <dialog id="shopping-cart">
       <h2 id="cart-items-count"></h2>
       <table>
         <thead>
@@ -52,7 +56,7 @@
         </tfoot>
 
       </table>
-    </section>
+    </dialog>
   </main>
 
   <script src="./src/js/database.js"></script>

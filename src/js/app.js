@@ -1,45 +1,63 @@
-function createProductsList() {
-  const elements = [];
-  DATABASE.forEach((item) => elements.push(new Product(item)));
-  return elements;
+function createProductsList(JSON) {
+  const productsList = [];
+  for (data of JSON) {
+    const product = new Product(data);
+    productsList.push(product);
+  }
+  return productsList;
 }
 
-function renderProducts() {
-  const productsList = document.getElementById("products");
-
-  PRODUCTS.forEach((product) => {
-    const li = document.createElement("li");
-    li.appendChild(product.renderHTML());
-    productsList.appendChild(li);
-  });
+function renderProducts(productsList, shoppingCart) {
+  const PRODUCTS_UL = document.getElementById("products");
+  for (product of productsList) {
+    const li = document.createElement('li');
+    const htmlProduct = product.renderHTML(productsList, shoppingCart);
+    li.appendChild(htmlProduct);
+    PRODUCTS_UL.appendChild(li);
+  }
 }
 
-function setKeywords() {
-  createHTML(concatKeys());
+function setKeywords(productList) {
+  const keys = prepareKeys();
+  createOptions(keys);
 
-  function concatKeys() {
-    const keys = [];
+  function prepareKeys() {
+    const keysArray = [];
 
-    for (product of PRODUCTS) {
-      keys.push(...product.keywords);
+    for (product of productList) {
+      keysArray.push(...product.keywords);
     }
-
-    const set = new Set(keys);
-    return set;
+    return new Set(keysArray);
   }
 
-  function createHTML(keys) {
-    const datalist = document.getElementById("keywords");
+  function createOptions(keys) {
+    const datalist = document.getElementById('keywords');
+
     for (key of keys) {
-      const option = document.createElement("option");
+      const option = document.createElement('option');
       option.value = key;
       datalist.appendChild(option);
     }
   }
+
+
 }
 
-const PRODUCTS = createProductsList();
+function showCart () {
+  const modal = document.getElementById('shopping-cart');
+  if (modal.open) {
+      modal.close();
+  }
+  else {
+    modal.show();
+  }
+  
+}
+
+const PRODUCTS = createProductsList(DATABASE);
 const CART = new ShoppingCart();
 
-renderProducts();
-setKeywords();
+renderProducts(PRODUCTS, CART);
+setKeywords(PRODUCTS);
+
+

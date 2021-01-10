@@ -15,7 +15,7 @@ class Product {
         this.keywords = product.extra.keywords.split(',');
     }
 
-    renderHTML() {
+    renderHTML(products, shoppingCart) {
         const container = document.createElement("div");
         const figure = document.createElement("figure");
         const productImg = document.createElement("img");
@@ -92,9 +92,9 @@ class Product {
         function addToCart(e) {
             const count = Number(e.target.previousSibling.value);
             const productID = Number(e.target.value);
-            const product = PRODUCTS.find(item => item.id === productID);
-            CART.addItem(new CartItem(product, count));
-            CART.renderHTML();
+            const product = products.find(item => item.id === productID);
+            shoppingCart.addItem(new CartItem(product, count));
+            shoppingCart.renderHTML();
         }
     }
 }
