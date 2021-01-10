@@ -56,8 +56,10 @@ function showCart () {
 
 const PRODUCTS = createProductsList(DATABASE);
 const CART = new ShoppingCart();
+const SHOP_BTN = document.getElementById('cart-icon');
 
 renderProducts(PRODUCTS, CART);
 setKeywords(PRODUCTS);
+SHOP_BTN.onclick = showCart;
 
 
