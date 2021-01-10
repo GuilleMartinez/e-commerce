@@ -10,7 +10,7 @@ const DATABASE = [
       stock: 100,
       hasDiscount: true,
       discountValue: 0.5,
-      imgURL: "src/img/frutas/naranja.jpg",
+      imgURL: "./src/img/frutas/naranja.jpg",
       keywords: "naranja,naranjas,citricos",
     },
   },
@@ -25,7 +25,7 @@ const DATABASE = [
     extra: {
       hasDiscount: false,
       discountValue: 0,
-      imgURL: "src/img/frutas/limon.jpg",
+      imgURL: "./src/img/frutas/limon.jpg",
       keywords: "limon,limones,citricos,fruta,frutas",
     },
   },
@@ -40,7 +40,7 @@ const DATABASE = [
     extra: {
       hasDiscount: false,
       discountValue: 0,
-      imgURL: "src/img/frutas/mandarina.jpg",
+      imgURL: "./src/img/frutas/mandarina.jpg",
       keywords: "mandarina,mandarinas,citricos,fruta,frutas",
     },
   },
@@ -55,7 +55,7 @@ const DATABASE = [
     extra: {
       hasDiscount: true,
       discountValue: 0.2,
-      imgURL: "src/img/frutas/lima.jpg",
+      imgURL: "./src/img/frutas/lima.jpg",
       keywords: "lima,limas,citricos,fruta,frutas",
     },
   },
@@ -70,7 +70,7 @@ const DATABASE = [
     extra: {
       hasDiscount: true,
       discountValue: 0.8,
-      imgURL: "src/img/frutas/frutilla.jpg",
+      imgURL: "./src/img/frutas/frutilla.jpg",
       keywords: "frutilla,frutillas,frutos rojos,fruta,frutas",
     },
   },
