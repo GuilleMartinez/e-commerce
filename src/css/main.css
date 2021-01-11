@@ -58,7 +58,7 @@ header {
   background-position: center;
 }
 
-.search-section form {
+#search-form {
   width: 50%;
 }
 
@@ -72,6 +72,7 @@ header {
 }
 
 input[type="search"] {
+  display: block;
   height: 4.5rem;
   width: 100%;
   text-align: center;
@@ -231,7 +232,7 @@ main {
 
 @media (max-width: 600px) {
   .main-title,
-  .search-section form {
+  #search-form {
     width: 95%;
   }
 }
@@ -249,14 +250,12 @@ table {
 
 tr {
   display: flex;
-  align-items: center;  
   font-size: 1.3rem;
 }
 
 th,td {
   flex-basis: 33.3%;
   border-bottom: 1px solid;
-  padding: 0.5rem;
 }
 
 tfoot {
@@ -289,7 +288,8 @@ tfoot {
   left: 0;
   z-index: 1024;
   padding: 1rem;
-  max-width: 50rem;
+  width: 80vw;
   height: max-content;
   margin: 0 auto;
+  border: .1rem solid rgb(60, 60, 60);
 }

@@ -23,19 +23,21 @@
     <section class="search-section">
       <h2 class="title main-title">¿Qué estás buscando?</h2>
 
-      <form id="search-form" autocomplete="off" method="POST">
-        <input required list="keywords" type="search" name="search" placeholder="banana, naranjas, mandarinas" />
+      <div id="search-form" autocomplete="off" action="#" method="POST">
+        <input id="search-input" list="keywords" type="search" name="search"
+          placeholder="banana, naranjas, mandarinas" />
 
-        <datalist id="keywords">
-          <option></option>
-          <option></option>
-        </datalist>
-      </form>
+        <datalist id="keywords"></datalist>
+        
+      </div>
     </section>
 
     <section class="all-products">
+
       <h2 class="title secondary-title mb-20">Nuestros productos</h2>
+      
       <ul id="products"></ul>
+
     </section>
 
     <dialog id="shopping-cart">
