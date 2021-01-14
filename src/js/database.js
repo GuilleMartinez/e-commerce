@@ -11,7 +11,7 @@ const DATABASE = [
       hasDiscount: true,
       discountValue: 0.5,
       imgURL: "./src/img/frutas/naranja.jpg",
-      keywords: "naranja,naranjas,citricos",
+      keywords: "naranja,naranjas,citricos,fruta,frutas",
     },
   },
 

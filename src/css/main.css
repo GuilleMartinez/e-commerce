@@ -14,7 +14,7 @@ html {
   --main-color: rgb(60, 60, 60);
   --font-content-color: rgb(255, 255, 255);
   --product-size: 25rem;
-  --gap: 1rem;
+  --gap: 1.5rem;
   --product-btn-size: 3rem;
 }
 
@@ -201,7 +201,8 @@ main {
   height: var(--product-btn-size);
   width: var(--product-btn-size);
   line-height: var(--product-btn-size);
-  background-color: transparent;
+  background-color: black;
+  color: white;
   border: none;
 }
 
@@ -212,7 +213,7 @@ main {
 }
 
 .add-cart-btn:hover {
-  color: green;
+  background-color: green;
 }
 
 .discount-amount {

@@ -1,3 +1,14 @@
+const PRODUCTS = createProductsList(DATABASE);
+const CART = new ShoppingCart();
+
+
+renderProducts(PRODUCTS, CART);
+CART.renderHTML();
+setKeywords(PRODUCTS);
+setFilterByKeywords();
+setCartRender();
+
+
 function createProductsList(JSON) {
   const productsList = [];
   for (data of JSON) {
@@ -17,6 +28,20 @@ function renderProducts(productsList, shoppingCart) {
     li.appendChild(htmlProduct);
     PRODUCTS_UL.appendChild(li);
   }
+
+  PRODUCTS_UL.onclick = addProduct;
+
+  function addProduct(e) {
+    if (e.target.className.includes('add-cart-btn')) {
+      const count = Number(e.target.previousSibling.value);
+      const productID = Number(e.target.value);
+      const product = productsList.find(item => item.id === productID);
+      shoppingCart.addItem(new CartItem(product, count));
+      shoppingCart.renderHTML();
+    }
+
+  }
+
 }
 
 function setKeywords(productList) {
@@ -43,19 +68,12 @@ function setKeywords(productList) {
   }
 }
 
-function showCart() {
-  const modal = document.getElementById("shopping-cart");
-  if (modal.open) {
-    modal.close();
-  } else {
-    modal.show();
-  }
-}
-
 function setFilterByKeywords() {
 
-  const SEARCH_INPUT = document.getElementById("search-input");
-  SEARCH_INPUT.oninput = filterbyKey;
+  const SEARCH_FORM = document.getElementById('search-form');
+
+  SEARCH_FORM.oninput = filterbyKey;
+  SEARCH_FORM.onsubmit = () => false;
 
   function filterbyKey(event) {
 
@@ -73,15 +91,15 @@ function setFilterByKeywords() {
 function setCartRender() {
   const SHOP_BTN = document.getElementById("cart-icon");
   SHOP_BTN.onclick = showCart;
+
+  function showCart() {
+    const modal = document.getElementById("shopping-cart");
+    if (modal.open) {
+      modal.close();
+    } else {
+      modal.show();
+    }
+  }
+
 }
-
-
-const PRODUCTS = createProductsList(DATABASE);
-const CART = new ShoppingCart();
-
-
-renderProducts(PRODUCTS, CART);
-setKeywords(PRODUCTS);
-setFilterByKeywords();
-setCartRender();
 

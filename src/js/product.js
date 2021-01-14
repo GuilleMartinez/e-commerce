@@ -68,14 +68,14 @@ class Product {
 
         itemCount.classList.add("item-count");
         itemCount.type = "number";
-        itemCount.min = 1;
+        itemCount.step = "0.5";
+        itemCount.min = 0.5;
         itemCount.defaultValue = 1;
 
         addBtn.classList.add("btn", "add-cart-btn");
         addBtn.title = "Añadir al carrito";
         addBtn.textContent = "+";
         addBtn.value = this.id;
-        addBtn.onclick = addToCart;
 
         buttons.classList.add("buttons");
         buttons.appendChild(itemCount);
@@ -88,14 +88,6 @@ class Product {
         container.appendChild(productInfo);
 
         return container;
-
-        function addToCart(e) {
-            const count = Number(e.target.previousSibling.value);
-            const productID = Number(e.target.value);
-            const product = products.find(item => item.id === productID);
-            shoppingCart.addItem(new CartItem(product, count));
-            shoppingCart.renderHTML();
-        }
     }
 }
 
