@@ -15,7 +15,7 @@ class Product {
         this.keywords = product.extra.keywords.split(',');
     }
 
-    renderHTML(products, shoppingCart) {
+    renderHTML() {
         const container = document.createElement("div");
         const figure = document.createElement("figure");
         const productImg = document.createElement("img");
@@ -68,8 +68,7 @@ class Product {
 
         itemCount.classList.add("item-count");
         itemCount.type = "number";
-        itemCount.step = "0.5";
-        itemCount.min = 0.5;
+        itemCount.min = 1;
         itemCount.defaultValue = 1;
 
         addBtn.classList.add("btn", "add-cart-btn");

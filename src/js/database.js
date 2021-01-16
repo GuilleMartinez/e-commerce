@@ -128,8 +128,8 @@ const DATABASE = [
     brand: "Marta Dzedyshko",
     price: 200,
     extra: {
-      hasDiscount: false,
-      discountValue: 0,
+      hasDiscount: true,
+      discountValue: 0.5,
       imgURL: "./src/img/frutas/pera.jpg",
       keywords: "pera,peras,fruta,frutas",
     },

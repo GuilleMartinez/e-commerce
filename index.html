@@ -15,7 +15,7 @@
     <a class="icon logo" href="#"><i class="fas fa-leaf"></i></a>
     <button aria-label="go to cart" id="cart-icon" class="icon" href="#shopping-cart" class="shopping-btn">
       <i class="fas fa-shopping-cart"></i>
-      <b id="count-icon"></b>
+      <b id="items-count-icon"></b>
     </button>
   </header>
 
@@ -24,46 +24,46 @@
       <h2 class="title main-title">¿Qué estás buscando?</h2>
 
       <form id="search-form" autocomplete="off" action="#" method="POST">
-        <input list="keywords" type="search" name="search"
-          placeholder="banana, naranjas, mandarinas" />
-
+        <input list="keywords" type="search" name="product-filter" placeholder="banana, naranjas, mandarinas" />
         <datalist id="keywords"></datalist>
-        
+
       </form>
     </section>
 
     <section class="all-products">
-
       <h2 class="title secondary-title mb-20">Nuestros productos</h2>
-      
       <ul id="products"></ul>
-
     </section>
 
-    <dialog id="shopping-cart">
-      <h2 id="cart-items-count"></h2>
-      <table>
+    <section>
+      <h2 id="total-count">Total de elementos en carrito: 0</h2>
+      <table id="bill-payment">
         <thead>
           <tr>
+            <th></th>
             <th scope="col">Item</th>
             <th scope="col">Cantidad (Kg)</th>
             <th scope="col">Subtotal</th>
           </tr>
         </thead>
 
-        <tbody id="cart-info"></tbody>
+        <tbody id="payment-info"></tbody>
 
         <tfoot>
-          <tr scope="row" id="cart-total"></tr>
+          <tr scope="row" id="payment-total"></tr>
         </tfoot>
 
       </table>
-    </dialog>
+
+      <button id="delete-all-btn">Vaciar carrito</button>
+      <button id="pay-btn">Finalizar Compra</button>
+    </section>
   </main>
 
   <script src="./src/js/database.js"></script>
   <script src="./src/js/cart.js"></script>
   <script src="./src/js/product.js"></script>
+  <script src="./src/js/historian.js"></script>
   <script src="./src/js/app.js"></script>
 </body>
 

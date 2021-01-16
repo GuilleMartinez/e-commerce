@@ -20,9 +20,8 @@ class CartItem {
 }
 
 class ShoppingCart {
-  constructor() {
-    this.items = [];
-  }
+
+  items = [];
 
   addItem(item) {
     const index = this.searchItem(item.product.id);
@@ -39,7 +38,8 @@ class ShoppingCart {
   }
 
   removeItem(itemId) {
-    console.log("Eliminar Item");
+    const itemsFiltered = this.items.filter( item => item.product.id !==  itemId );
+    this.items = itemsFiltered;
   }
 
   searchItem(productID) {
@@ -54,40 +54,43 @@ class ShoppingCart {
   }
 
   removeAll() {
-    console.log("Remover todos los items del carrito");
+    this.items = [];
   }
 
-  renderHTML() {
-    const tbody = document.getElementById('cart-info');
-    const cartTotal = document.getElementById('cart-total');
-    const itemsCount = document.getElementById('cart-items-count');
-    const countIcon = document.getElementById('count-icon');
-
+  renderHTML(domCart) {
+    
     const {total, count } = this.calculateTotal();
-
-    tbody.textContent = "";
-
+    domCart.paymentInfo.textContent = "";
 
     this.items.forEach( item =>  { 
         const trow = document.createElement('tr');
-        const name = document.createElement('td');
-        const count = document.createElement('td');
-        const total = document.createElement('td');
+        const nameCell = document.createElement('td');
+        const countCell = document.createElement('td');
+        const totalCell = document.createElement('td');
+        const btnCell = document.createElement('td');
+        const deleteBtn = document.createElement('button');
 
-        name.textContent = item.product.name;
-        count.textContent = item.count;
-        total.textContent = `$${item.total}`;
+        nameCell.textContent = item.product.name;
+        countCell.textContent = item.count;
+        totalCell.textContent = `$${item.total}`;
 
-        trow.appendChild(name);
-        trow.appendChild(count);
-        trow.appendChild(total);
+        deleteBtn.classList.add('remove-btn');
+        deleteBtn.value = item.product.id;
+        deleteBtn.textContent = "❌";
 
-        tbody.appendChild(trow);
+        btnCell.appendChild(deleteBtn);
+
+        trow.appendChild(btnCell);
+        trow.appendChild(nameCell);
+        trow.appendChild(countCell);
+        trow.appendChild(totalCell);
+
+        domCart.paymentInfo.appendChild(trow);
     }) 
 
-    itemsCount.textContent = `Total de elementos en carrito: ${count}`;
-    countIcon.textContent = count;
-    cartTotal.textContent = `Total a pagar: $${total}`;
+    domCart.totalCount.textContent = `Total de elementos en carrito: ${count}`;
+    domCart.totalIcon.textContent = count;
+    domCart.paymentTotal.textContent = `Total a pagar: $${total}`;
 
 
   }
