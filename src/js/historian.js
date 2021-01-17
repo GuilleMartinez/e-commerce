@@ -5,13 +5,12 @@ class HistoryTag {
         this.data = data;
     }
 
-    getHistorial () {
+    getHistorial() {
         return {
             time: `${this.date} ${this.time}`,
-            data: this.data
-        }
+            data: this.data,
+        };
     }
-
 }
 
 class Historian {
@@ -20,7 +19,7 @@ class Historian {
     }
 
     getHistory() {
-        return JSON.parse(localStorage.getItem('buy-history-miweb'));
+        return JSON.parse(localStorage.getItem("buy-history-miweb"));
     }
 
     addNewBuy(newBuy) {
@@ -28,8 +27,40 @@ class Historian {
     }
 
     saveHistory() {
-        localStorage.setItem('buy-history-miweb', JSON.stringify(this.historian));
+        localStorage.setItem("buy-history-miweb", JSON.stringify(this.historian));
     }
 
+    renderHistory(domContainer) {
+        domContainer.textContent = "";
+        
+        for (const entry of this.historian) {
+            domContainer.appendChild( createDetails(entry) );
+        }
 
+        function createDetails(entry) {
+            const details = document.createElement("details");
+            const summary = document.createElement("summary");
+            const entryList = document.createElement("ul");
+            const totalSpan = document.createElement("span");
+
+            
+            for (const item of entry.data.items) {
+                const li = document.createElement("li");
+                li.textContent = `${item.product.name} x ${item.count}Kg - $${item.product.hasDiscount
+                        ? item.product.discountPrice * item.count
+                        : item.product.price * item.count
+                    }`;
+                entryList.appendChild(li);
+            }
+
+            summary.textContent = `${entry.time}`;
+            totalSpan.textContent = `Total: $${entry.data.total}`;
+            details.appendChild(summary);
+            details.appendChild(entryList);
+            details.appendChild(totalSpan);
+
+            return details;
+        }
+
+    }
 }
