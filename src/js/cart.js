@@ -50,7 +50,11 @@ class ShoppingCart {
     let total = 0;
     this.items.forEach(item => total += item.total ); 
     
-    return {total: total, count: this.items.length};
+    return total;
+  }
+
+  getItemsCount() {
+    return this.items.length;
   }
 
   removeAll() {
@@ -59,7 +63,8 @@ class ShoppingCart {
 
   renderHTML(domCart) {
     
-    const {total, count } = this.calculateTotal();
+    const total = this.calculateTotal();
+    const count = this.getItemsCount();
     domCart.paymentInfo.textContent = "";
 
     this.items.forEach( item =>  { 
@@ -89,7 +94,7 @@ class ShoppingCart {
     }) 
 
     domCart.totalCount.textContent = `Total de elementos en carrito: ${count}`;
-    domCart.totalIcon.textContent = count;
+    domCart.totalIcon.textContent = count > 0 ? count : "";
     domCart.paymentTotal.textContent = `Total a pagar: $${total}`;
 
 

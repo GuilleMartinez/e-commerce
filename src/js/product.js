@@ -34,7 +34,7 @@ class Product {
         productImg.src = this.imgURL;
 
         productCaption.classList.add("product-caption");
-        productCaption.textContent = `${this.name} x KG`
+        productCaption.textContent = `${this.name} x Kg`
 
         figure.appendChild(productImg);
         figure.appendChild(productCaption);

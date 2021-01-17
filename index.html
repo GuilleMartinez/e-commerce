@@ -12,11 +12,15 @@
 
 <body>
   <header>
-    <a class="icon logo" href="#"><i class="fas fa-leaf"></i></a>
-    <button aria-label="go to cart" id="cart-icon" class="icon" href="#shopping-cart" class="shopping-btn">
+    <button aria-label="show history" id="history-btn" class="icon">
+      <i class="fas fa-history"></i>
+    </button>
+
+    <button aria-label="go to cart" id="cart-icon" class="icon">
       <i class="fas fa-shopping-cart"></i>
       <b id="items-count-icon"></b>
     </button>
+
   </header>
 
   <main>
@@ -26,7 +30,6 @@
       <form id="search-form" autocomplete="off" action="#" method="POST">
         <input list="keywords" type="search" name="product-filter" placeholder="banana, naranjas, mandarinas" />
         <datalist id="keywords"></datalist>
-
       </form>
     </section>
 
@@ -58,6 +61,8 @@
       <button id="delete-all-btn">Vaciar carrito</button>
       <button id="pay-btn">Finalizar Compra</button>
     </section>
+
+    <section id="historial"></section>
   </main>
 
   <script src="./src/js/database.js"></script>

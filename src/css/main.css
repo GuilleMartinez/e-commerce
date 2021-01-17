@@ -32,16 +32,19 @@ header {
   height: 4rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   color: var(--font-content-color);
 }
 
 .icon {
   font-size: 3rem;
-    color: var(--font-content-color);
+  color: var(--font-content-color);
+  background-color: transparent;
+  border: none;
+  margin-right: 2rem;
 }
 
-.logo{
+.logo {
   margin-left: 1rem;
 }
 
@@ -256,7 +259,8 @@ tr {
   line-height: 2.5rem;
 }
 
-th,td {
+th,
+td {
   flex-basis: 25%;
   border-bottom: 1px solid;
 }
@@ -266,21 +270,21 @@ tfoot {
   margin-left: auto;
 }
 
-
-#count-icon {
+#items-count-icon {
   position: absolute;
   bottom: 0;
-  background-color: red;
+  background-color: var(--font-content-color);
+  color: var(--main-color);
+  font-weight: bolder;
   border-radius: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
-  font-size: 1.3rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  font-size: 1.6rem;
   text-align: center;
 }
 
 #cart-icon {
-  position: relative; 
-  margin-right: 3rem;
+  position: relative;
   background-color: transparent;
   border: none;
 }
@@ -294,5 +298,18 @@ tfoot {
   width: 80vw;
   height: max-content;
   margin: 0 auto;
-  border: .1rem solid rgb(60, 60, 60);
+  border: 0.1rem solid rgb(60, 60, 60);
+}
+
+
+details {
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 3rem;
+  font-size: 1.5rem;
+}
+
+details li {
+  margin: 1rem 0;
 }

@@ -1,6 +1,8 @@
 const HTML_PRODUCTS = document.getElementById("products");
 const HTML_DATALIST = document.getElementById("keywords");
 const HTML_FORM = document.getElementById("search-form");
+const HTML_HISTORY_BTN = document.getElementById("history-btn");
+const HTML_HISTORIAL = document.getElementById("historial");
 
 const HTML_CART = {
   billPayment: document.getElementById("bill-payment"),
@@ -9,7 +11,7 @@ const HTML_CART = {
   totalCount: document.getElementById("total-count"),
   totalIcon: document.getElementById("items-count-icon"),
   removeAllBtn: document.getElementById("delete-all-btn"),
-  payBtn: document.getElementById("pay-btn")
+  payBtn: document.getElementById("pay-btn"),
 };
 
 const PRODUCTS = createProductsList(DATABASE);
@@ -23,6 +25,7 @@ setAddProductEvent(HTML_PRODUCTS, PRODUCTS, CART);
 setRemoveProductEvent(HTML_CART, CART);
 setClearCartEvent(HTML_CART, CART);
 setPayProductsEvent(HTML_CART, CART, SHOP_HISTORY);
+setHistoryEvent(HTML_HISTORY_BTN, SHOP_HISTORY);
 
 function createProductsList(JSON) {
   const productsList = [];
@@ -42,7 +45,6 @@ function renderProducts(domList, productsList) {
     li.appendChild(product.renderHTML());
     domList.appendChild(li);
   }
-
 }
 
 function setKeywords(productList, domDatalist) {
@@ -84,7 +86,6 @@ function setFormFilters(domForm, domList, productList) {
       }
     }
   }
-
 }
 
 function setAddProductEvent(domList, productsList, shoppingCart) {
@@ -99,14 +100,13 @@ function setAddProductEvent(domList, productsList, shoppingCart) {
       shoppingCart.renderHTML(HTML_CART);
     }
   }
-
 }
 
 function setRemoveProductEvent(domCart, shoppingCart) {
   domCart.billPayment.onclick = removeProduct;
 
   function removeProduct(e) {
-    if (e.target.className.includes('remove-btn')) {
+    if (e.target.className.includes("remove-btn")) {
       const productId = Number(e.target.value);
       shoppingCart.removeItem(productId);
       shoppingCart.renderHTML(domCart);
@@ -119,27 +119,21 @@ function setClearCartEvent(domCart) {
 }
 
 function setPayProductsEvent(domCart, shoppingCart, historian) {
-
   domCart.payBtn.onclick = savePayment;
 
-  function savePayment () {
-    
-    const {total: total} = shoppingCart.calculateTotal();
-    const newHistory = createHistory(shoppingCart.items, total);
+  function savePayment() {
 
-    historian.addNewBuy(newHistory);
-    historian.saveHistory()
-    clearCart();
-  
-    function createHistory(items, total) {
-      const buyDate = new Date();
-      return {
-        date:  `${buyDate.toLocaleDateString()} ${buyDate.toLocaleTimeString()}`,
-        cart: items,
-        total: total
-      }
+    if (shoppingCart.getItemsCount() > 0) {
+      const newHistory = new HistoryTag({
+        items: shoppingCart.items,
+        total: shoppingCart.calculateTotal(),
+      });
+      historian.addNewBuy(newHistory.getHistorial());
+      historian.saveHistory();
+      clearCart();
+      console.log('Compra realizada: ', newHistory.time)
     }
-  
+
   }
 }
 
@@ -147,4 +141,31 @@ function clearCart() {
   HTML_CART.paymentInfo.textContent = "";
   CART.removeAll();
   CART.renderHTML(HTML_CART);
+}
+
+function setHistoryEvent(htmlButton, shopHistory) {
+  htmlButton.onclick = showHistory;
+
+  function showHistory() {
+    HTML_HISTORIAL.textContent = "";
+    for (entry of shopHistory.historian) {
+      const details = document.createElement('details');
+      const summary = document.createElement('summary');
+      const entryList = document.createElement('ul');
+      const totalSpan = document.createElement('span');
+
+      for (item of entry.data.items) {
+        const li = document.createElement('li');
+        li.textContent = `${item.product.name} x ${item.count}Kg - $${item.product.price * item.count}`;
+        entryList.appendChild(li);
+      }
+
+      summary.textContent = `${entry.time}`;
+      totalSpan.textContent = `Total: $${entry.data.total}`;
+      details.appendChild(summary);
+      details.appendChild(entryList);
+      details.appendChild(totalSpan);
+      HTML_HISTORIAL.appendChild(details);
+    }
+  }
 }

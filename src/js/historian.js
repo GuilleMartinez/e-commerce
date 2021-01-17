@@ -1,18 +1,34 @@
+class HistoryTag {
+    constructor(data) {
+        this.date = new Date().toLocaleDateString();
+        this.time = new Date().toLocaleTimeString();
+        this.data = data;
+    }
+
+    getHistorial () {
+        return {
+            time: `${this.date} ${this.time}`,
+            data: this.data
+        }
+    }
+
+}
+
 class Historian {
     constructor() {
-        this.buyHistory = this.getHistory() || [];
+        this.historian = this.getHistory() || [];
     }
 
     getHistory() {
-        console.log(JSON.parse(localStorage.getItem('buy-history-miweb')));
+        return JSON.parse(localStorage.getItem('buy-history-miweb'));
     }
 
     addNewBuy(newBuy) {
-        this.buyHistory.push(newBuy);
+        this.historian.push(newBuy);
     }
 
     saveHistory() {
-        localStorage.setItem('buy-history-miweb', JSON.stringify(this.buyHistory));
+        localStorage.setItem('buy-history-miweb', JSON.stringify(this.historian));
     }
 
 
