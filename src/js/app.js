@@ -2,7 +2,6 @@ const HTML_PRODUCTS = document.getElementById("products");
 const HTML_DATALIST = document.getElementById("keywords");
 const HTML_FORM = document.getElementById("search-form");
 const HTML_HISTORY_BTN = document.getElementById("history-btn");
-const HTML_HISTORIAL = document.getElementById("historial");
 
 const HTML_CART = {
   billPayment: document.getElementById("bill-payment"),
@@ -12,6 +11,11 @@ const HTML_CART = {
   totalIcon: document.getElementById("items-count-icon"),
   removeAllBtn: document.getElementById("delete-all-btn"),
   payBtn: document.getElementById("pay-btn"),
+};
+
+const HTML_HISTORIAL = {
+  container: document.getElementById("historial"),
+  isOpen: false,
 };
 
 const PRODUCTS = createProductsList(DATABASE);
@@ -25,7 +29,7 @@ setAddProductEvent(HTML_PRODUCTS, PRODUCTS, CART);
 setRemoveProductEvent(HTML_CART, CART);
 setClearCartEvent(HTML_CART, CART);
 setPayProductsEvent(HTML_CART, CART, SHOP_HISTORY);
-setHistoryEvent(HTML_HISTORY_BTN, SHOP_HISTORY);
+setHistoryEvent(HTML_HISTORY_BTN, SHOP_HISTORY, HTML_HISTORIAL);
 
 function createProductsList(JSON) {
   const productsList = [];
@@ -122,7 +126,6 @@ function setPayProductsEvent(domCart, shoppingCart, historian) {
   domCart.payBtn.onclick = savePayment;
 
   function savePayment() {
-
     if (shoppingCart.getItemsCount() > 0) {
       const newHistory = new HistoryTag({
         items: shoppingCart.items,
@@ -131,9 +134,8 @@ function setPayProductsEvent(domCart, shoppingCart, historian) {
       historian.addNewBuy(newHistory.getHistorial());
       historian.saveHistory();
       clearCart();
-      console.log('Compra realizada: ', newHistory.time)
+      console.log("Compra realizada: ", newHistory.time);
     }
-
   }
 }
 
@@ -143,19 +145,29 @@ function clearCart() {
   CART.renderHTML(HTML_CART);
 }
 
-function setHistoryEvent(htmlButton, shopHistory) {
+function setHistoryEvent(htmlButton, shopHistory, domHistorial) {
   htmlButton.onclick = showHistory;
 
   function showHistory() {
-    HTML_HISTORIAL.textContent = "";
-    for (entry of shopHistory.historian) {
-      const details = document.createElement('details');
-      const summary = document.createElement('summary');
-      const entryList = document.createElement('ul');
-      const totalSpan = document.createElement('span');
+    domHistorial.container.textContent = "";
+    domHistorial.container.classList.toggle("visible");
+    domHistorial.isOpen = !domHistorial.isOpen;
+
+    if (domHistorial.isOpen) {
+      for (entry of shopHistory.historian) {
+        const details = createDetails(entry);
+        domHistorial.container.appendChild(details);
+      }
+    }
+
+    function createDetails(entry) {
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+      const entryList = document.createElement("ul");
+      const totalSpan = document.createElement("span");
 
       for (item of entry.data.items) {
-        const li = document.createElement('li');
+        const li = document.createElement("li");
         li.textContent = `${item.product.name} x ${item.count}Kg - $${item.product.price * item.count}`;
         entryList.appendChild(li);
       }
@@ -165,7 +177,7 @@ function setHistoryEvent(htmlButton, shopHistory) {
       details.appendChild(summary);
       details.appendChild(entryList);
       details.appendChild(totalSpan);
-      HTML_HISTORIAL.appendChild(details);
+      return details;
     }
   }
 }

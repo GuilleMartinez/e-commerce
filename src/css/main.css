@@ -302,6 +302,14 @@ tfoot {
 }
 
 
+.historial.visible {
+  display: block;
+}
+
+.historial {
+  display: none;
+}
+
 details {
   text-align: center;
   margin-right: auto;
