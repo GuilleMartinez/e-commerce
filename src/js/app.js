@@ -1,3 +1,4 @@
+// Elementos HTML
 const HTML_PRODUCTS = document.getElementById("products");
 const HTML_DATALIST = document.getElementById("keywords");
 const HTML_FORM = document.getElementById("search-form");
@@ -18,19 +19,22 @@ const HTML_HISTORIAL = {
   isOpen: false,
 };
 
+// Objetos principales
 const PRODUCTS = createProductsList(DATABASE);
 const CART = new ShoppingCart(HTML_CART);
 const SHOP_HISTORY = new Historian();
 
+// Funciones principales de nuestra aplicación.
 renderProducts(HTML_PRODUCTS, PRODUCTS);
 setKeywords(PRODUCTS, HTML_DATALIST);
 setFormFilters(HTML_FORM, HTML_PRODUCTS, PRODUCTS);
 setAddProductEvent(HTML_PRODUCTS, PRODUCTS, CART);
 setRemoveProductEvent(HTML_CART, CART);
-setClearCartEvent(HTML_CART, CART);
+setClearCartEvent(HTML_CART);
 setPayProductsEvent(HTML_CART, CART, SHOP_HISTORY);
 setHistoryEvent(HTML_HISTORY_BTN, SHOP_HISTORY, HTML_HISTORIAL);
 
+// Creación de lista de productos a partir de JSON.
 function createProductsList(JSON) {
   const productsList = [];
   for (data of JSON) {
@@ -41,9 +45,9 @@ function createProductsList(JSON) {
   return productsList;
 }
 
+// Renderizado de nuestros productos en HTML
 function renderProducts(domList, productsList) {
-  domList.textContent = ""; // Remove all the elements of the list
-
+  domList.textContent = ""; // Para resetear nuestra lista de productos.
   for (product of productsList) {
     const li = document.createElement("li");
     li.appendChild(product.renderHTML());
@@ -51,6 +55,7 @@ function renderProducts(domList, productsList) {
   }
 }
 
+// Renderizar las palabras clave para buscar nuestros productos
 function setKeywords(productList, domDatalist) {
   const words = prepareKeywords(productList);
   renderKeywords(words, domDatalist);
@@ -72,6 +77,7 @@ function setKeywords(productList, domDatalist) {
   }
 }
 
+// Renderizar el filtro del forumlario de búsqueda
 function setFormFilters(domForm, domList, productList) {
   domForm.oninput = filterbyKey;
   domForm.onsubmit = () => false;
@@ -92,6 +98,7 @@ function setFormFilters(domForm, domList, productList) {
   }
 }
 
+// Agregar un producto al carrito
 function setAddProductEvent(domList, productsList, shoppingCart) {
   domList.onclick = addProduct;
 
@@ -106,6 +113,7 @@ function setAddProductEvent(domList, productsList, shoppingCart) {
   }
 }
 
+// Remover un producto del carrito
 function setRemoveProductEvent(domCart, shoppingCart) {
   domCart.billPayment.onclick = removeProduct;
 
@@ -118,10 +126,12 @@ function setRemoveProductEvent(domCart, shoppingCart) {
   }
 }
 
+// Borrar todos los elementos del carrito de compras
 function setClearCartEvent(domCart) {
   domCart.removeAllBtn.onclick = clearCart;
 }
 
+// Realizar pago de productos
 function setPayProductsEvent(domCart, shoppingCart, historian) {
   domCart.payBtn.onclick = savePayment;
 
@@ -139,12 +149,14 @@ function setPayProductsEvent(domCart, shoppingCart, historian) {
   }
 }
 
+// Vaciar Carrito de Compras
 function clearCart() {
   HTML_CART.paymentInfo.textContent = "";
   CART.removeAll();
   CART.renderHTML(HTML_CART);
 }
 
+// Renderizado de Historial de Compras en HTML
 function setHistoryEvent(htmlButton, shopHistory, domHistorial) {
   htmlButton.onclick = showHistory;
 
@@ -168,7 +180,7 @@ function setHistoryEvent(htmlButton, shopHistory, domHistorial) {
 
       for (item of entry.data.items) {
         const li = document.createElement("li");
-        li.textContent = `${item.product.name} x ${item.count}Kg - $${item.product.price * item.count}`;
+        li.textContent = `${item.product.name} x ${item.count}Kg - $${item.product.hasDiscount ? item.product.discountPrice * item.count : item.product.price * item.count}`;
         entryList.appendChild(li);
       }
 
