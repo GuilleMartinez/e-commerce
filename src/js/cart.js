@@ -38,7 +38,7 @@ class ShoppingCart {
   }
 
   removeItem(itemId) {
-    const itemsFiltered = this.items.filter( item => item.product.id !==  itemId );
+    const itemsFiltered = this.items.filter(item => item.product.id !== itemId);
     this.items = itemsFiltered;
   }
 
@@ -48,8 +48,8 @@ class ShoppingCart {
 
   calculateTotal() {
     let total = 0;
-    this.items.forEach(item => total += item.total ); 
-    
+    this.items.forEach(item => total += item.total);
+
     return total;
   }
 
@@ -62,36 +62,36 @@ class ShoppingCart {
   }
 
   renderHTML(domCart) {
-    
+
     const total = this.calculateTotal();
     const count = this.getItemsCount();
     domCart.paymentInfo.textContent = "";
 
-    this.items.forEach( item =>  { 
-        const trow = document.createElement('tr');
-        const nameCell = document.createElement('td');
-        const countCell = document.createElement('td');
-        const totalCell = document.createElement('td');
-        const btnCell = document.createElement('td');
-        const deleteBtn = document.createElement('button');
+    this.items.forEach(item => {
+      const trow = document.createElement('tr');
+      const nameCell = document.createElement('td');
+      const countCell = document.createElement('td');
+      const totalCell = document.createElement('td');
+      const btnCell = document.createElement('td');
+      const deleteBtn = document.createElement('button');
 
-        nameCell.textContent = item.product.name;
-        countCell.textContent = item.count;
-        totalCell.textContent = `$${item.total}`;
+      nameCell.textContent = item.product.name;
+      countCell.textContent = item.count;
+      totalCell.textContent = `$${item.total}`;
 
-        deleteBtn.classList.add('remove-btn');
-        deleteBtn.value = item.product.id;
-        deleteBtn.textContent = "❌";
+      deleteBtn.classList.add('remove-btn');
+      deleteBtn.value = item.product.id;
+      deleteBtn.textContent = "❌";
 
-        btnCell.appendChild(deleteBtn);
+      btnCell.appendChild(deleteBtn);
 
-        trow.appendChild(btnCell);
-        trow.appendChild(nameCell);
-        trow.appendChild(countCell);
-        trow.appendChild(totalCell);
+      trow.appendChild(btnCell);
+      trow.appendChild(nameCell);
+      trow.appendChild(countCell);
+      trow.appendChild(totalCell);
 
-        domCart.paymentInfo.appendChild(trow);
-    }) 
+      domCart.paymentInfo.appendChild(trow);
+    })
 
     domCart.totalCount.textContent = `Total de elementos en carrito: ${count}`;
     domCart.totalIcon.textContent = count > 0 ? count : "";

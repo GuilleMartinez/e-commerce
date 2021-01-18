@@ -1,5 +1,4 @@
 // Elementos HTML
-const HTML_PRODUCTS = document.getElementById("products");
 const HTML_DATALIST = document.getElementById("keywords");
 const HTML_FORM = document.getElementById("search-form");
 const HTML_HISTORY_BTN = document.getElementById("history-btn");
@@ -14,9 +13,15 @@ const HTML_CART = {
   payBtn: document.getElementById("pay-btn"),
 };
 
+const HTML_PRODUCTS = {
+  container: document.getElementById("products"),
+  isFiltered: false,
+};
+
 const HTML_HISTORIAL = {
   container: document.getElementById("historial"),
   isOpen: false,
+  hasChange: false,
 };
 
 // Objetos principales
@@ -26,6 +31,7 @@ const SHOP_HISTORY = new Historian();
 
 // Funciones principales de nuestra aplicación.
 renderProducts(HTML_PRODUCTS, PRODUCTS);
+SHOP_HISTORY.renderFullHistorial(HTML_HISTORIAL.container);
 setKeywords(PRODUCTS, HTML_DATALIST);
 setFormFilters(HTML_FORM, HTML_PRODUCTS, PRODUCTS);
 setAddProductEvent(HTML_PRODUCTS, PRODUCTS, CART);
@@ -46,19 +52,19 @@ function createProductsList(JSON) {
 }
 
 // Renderizado de nuestros productos en HTML
-function renderProducts(domList, productsList) {
-  domList.textContent = ""; // Para resetear nuestra lista de productos.
+function renderProducts(htmlProducts, productsList) {
+  htmlProducts.container.textContent = ""; // Para resetear nuestra lista de productos.
   for (product of productsList) {
     const li = document.createElement("li");
     li.appendChild(product.renderHTML());
-    domList.appendChild(li);
+    htmlProducts.container.appendChild(li);
   }
 }
 
 // Renderizar las palabras clave para buscar nuestros productos
-function setKeywords(productList, domDatalist) {
+function setKeywords(productList, htmlDatalist) {
   const words = prepareKeywords(productList);
-  renderKeywords(words, domDatalist);
+  renderKeywords(words, htmlDatalist);
 
   function prepareKeywords(array) {
     const words = [];
@@ -78,9 +84,9 @@ function setKeywords(productList, domDatalist) {
 }
 
 // Renderizar el filtro del forumlario de búsqueda
-function setFormFilters(domForm, domList, productList) {
-  domForm.oninput = filterbyKey;
-  domForm.onsubmit = () => false;
+function setFormFilters(htmlForm, htmlList, productList) {
+  htmlForm.oninput = filterbyKey;
+  htmlForm.onsubmit = () => false;
 
   function filterbyKey(event) {
     if (event.target.name === "product-filter") {
@@ -90,17 +96,19 @@ function setFormFilters(domForm, domList, productList) {
       );
 
       if (filteredProducts.length) {
-        renderProducts(domList, filteredProducts);
-      } else {
-        renderProducts(domList, productList);
+        renderProducts(htmlList, filteredProducts);
+        htmlList.isFiltered = true;
+      } else if (!keyword && htmlList.isFiltered) {
+        htmlList.isFiltered = false;
+        renderProducts(htmlList, productList);
       }
     }
   }
 }
 
 // Agregar un producto al carrito
-function setAddProductEvent(domList, productsList, shoppingCart) {
-  domList.onclick = addProduct;
+function setAddProductEvent(htmlList, productsList, shoppingCart) {
+  htmlList.container.onclick = addProduct;
 
   function addProduct(e) {
     if (e.target.className.includes("add-cart-btn")) {
@@ -114,8 +122,8 @@ function setAddProductEvent(domList, productsList, shoppingCart) {
 }
 
 // Remover un producto del carrito
-function setRemoveProductEvent(domCart, shoppingCart) {
-  domCart.billPayment.onclick = removeProduct;
+function setRemoveProductEvent(htmlCart, shoppingCart) {
+  htmlCart.billPayment.onclick = removeProduct;
 
   function removeProduct(e) {
     if (e.target.className.includes("remove-btn")) {
@@ -127,17 +135,21 @@ function setRemoveProductEvent(domCart, shoppingCart) {
 }
 
 // Borrar todos los elementos del carrito de compras
-function setClearCartEvent(domCart) {
-  domCart.removeAllBtn.onclick = clearCart;
+function setClearCartEvent(htmlCart) {
+  htmlCart.removeAllBtn.onclick = clearCart;
 }
 
 // Realizar pago de productos
-function setPayProductsEvent(domCart, shoppingCart, shopHistory, domHistorial) {
-  domCart.payBtn.onclick = savePayment;
+function setPayProductsEvent(
+  htmlCart,
+  shoppingCart,
+  shopHistory,
+  htmlHistorial
+) {
+  htmlCart.payBtn.onclick = savePayment;
 
   function savePayment() {
     if (shoppingCart.getItemsCount() > 0) {
-
       const newHistory = new HistoryTag({
         items: shoppingCart.items,
         total: shoppingCart.calculateTotal(),
@@ -145,29 +157,25 @@ function setPayProductsEvent(domCart, shoppingCart, shopHistory, domHistorial) {
 
       shopHistory.addNewBuy(newHistory.getHistorial());
       shopHistory.saveHistory();
+      htmlHistorial.hasChange = true;
       clearCart();
-      updateHistoryView(domHistorial, shopHistory);
+      updateHistoryView(htmlHistorial, shopHistory);
       console.log("Compra realizada: ", newHistory.time);
     }
-
   }
 }
 
 // Renderizado de Historial de Compras en HTML
-function setHistoryEvent(htmlButton, shopHistory, domHistorial) {
+function setHistoryEvent(htmlButton, htmlHistorial) {
   htmlButton.onclick = showHistory;
 
   function showHistory() {
-    domHistorial.container.textContent = "";
-    domHistorial.container.classList.toggle("visible");
-    domHistorial.isOpen = !domHistorial.isOpen;
-    updateHistoryView(domHistorial, shopHistory);
+    htmlHistorial.container.classList.toggle("visible");
+    htmlHistorial.isOpen = !htmlHistorial.isOpen;
   }
-
 }
 
-
-// Funciones Universales 
+// Funciones Universales
 
 // Vaciar Carrito de Compras
 function clearCart() {
@@ -178,5 +186,8 @@ function clearCart() {
 
 // Actualizar ventana de Historial
 function updateHistoryView(domHistorial, historian) {
-  if (domHistorial.isOpen) historian.renderHistory(domHistorial.container);
+  if (domHistorial.hasChange && domHistorial.isOpen) {
+    historian.renderLastHistory(domHistorial.container);
+    domHistorial.hasChange = false;
+  }
 }
