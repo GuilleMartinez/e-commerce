@@ -79,16 +79,16 @@ class ShoppingCart {
       countCell.textContent = item.count;
       totalCell.textContent = `$${item.total}`;
 
-      deleteBtn.classList.add('remove-btn');
+      deleteBtn.classList.add('remove-btn', 'btn');
       deleteBtn.value = item.product.id;
-      deleteBtn.textContent = "❌";
+      deleteBtn.textContent = "x";
 
       btnCell.appendChild(deleteBtn);
 
-      trow.appendChild(btnCell);
       trow.appendChild(nameCell);
       trow.appendChild(countCell);
       trow.appendChild(totalCell);
+      trow.appendChild(btnCell);
 
       domCart.paymentInfo.appendChild(trow);
     })

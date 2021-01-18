@@ -13,7 +13,7 @@ html {
   word-wrap: break-word;
   --earth-color: #8a2106;
   --earth-medium-color: #cc4725;
-  --earth-light-color: #ffaa94;
+  --earth-light-color: #f2e9e6;
   --green-life-color: #aeff99;
   --green-life-dark: #62b100;
   --main-color: rgb(60, 60, 60);
@@ -132,6 +132,7 @@ main {
   display: grid;
   grid-row-gap: 4rem;
   margin-bottom: 4rem;
+  min-height: 100vh;
 }
 
 /* Productos */
@@ -234,7 +235,7 @@ main {
   text-align: center;
 }
 
-.add-cart-btn:hover {
+.btn:hover {
   background-color: var(--green-life-color);
   border: 0.1rem solid var(--earth-color);
   color: var(--earth-color);
@@ -256,41 +257,8 @@ main {
   font-weight: bolder;
 }
 
-@media (max-width: 600px) {
-  .main-title,
-  #search-form {
-    width: 95%;
-  }
-}
 
-table {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 10rem;
-  width: 70%;
-  text-align: center;
-  table-layout: fixed;
-  border-collapse: collapse;
-}
 
-tr {
-  display: flex;
-  height: 2.5rem;
-  font-size: 1.3rem;
-  line-height: 2.5rem;
-}
-
-th,
-td {
-  flex-basis: 25%;
-  border-bottom: 1px solid;
-}
-
-tfoot {
-  margin-top: 1rem;
-  margin-left: auto;
-}
 
 #items-count-icon {
   position: absolute;
@@ -311,25 +279,51 @@ tfoot {
   border: none;
 }
 
-#shopping-cart {
+#bill-payment {
+  width: 100%;
+}
+
+#bill-payment tr {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 4rem;
+  font-size: 1.6rem;
+  border: none;
+}
+
+#bill-payment thead {
+  background-color: var(--earth-color);
+  color: var(--white-color);
+}
+
+#payment-info tr:hover {
+  background-color: var(--earth-light-color);
+}
+
+#bill-payment td, #bill-payment th {
+  flex-basis: 25%;
+}
+
+.container.visible {
+  visibility: visible;
+}
+
+.container {
   position: fixed;
-  top: 4rem;
-  left: 0;
-  z-index: 1024;
-  padding: 1rem;
-  width: 80vw;
-  height: max-content;
-  margin: 0 auto;
-  border: 0.1rem solid rgb(60, 60, 60);
+  transform: translateX(-50%);
+  left: 50%;
+  top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  background-color: var(--white-color);
+  visibility: hidden;
+  position: absolute;
 }
 
-#historial.visible {
-  display: block;
-}
 
-#historial {
-  display: none;
-}
 
 details {
   text-align: center;
@@ -341,4 +335,12 @@ details {
 
 details li {
   margin: 1rem 0;
+}
+
+@media (max-width: 600px) {
+  .main-title,
+  #search-form,
+  .container.cart {
+    width: 95%;
+  }
 }

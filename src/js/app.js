@@ -2,8 +2,10 @@
 const HTML_DATALIST = document.getElementById("keywords");
 const HTML_FORM = document.getElementById("search-form");
 const HTML_HISTORY_BTN = document.getElementById("history-btn");
+const HTML_CART_BTN = document.getElementById("cart-btn");
 
 const HTML_CART = {
+  container: document.getElementById("bill-container"),
   billPayment: document.getElementById("bill-payment"),
   paymentInfo: document.getElementById("payment-info"),
   paymentTotal: document.getElementById("payment-total"),
@@ -11,6 +13,7 @@ const HTML_CART = {
   totalIcon: document.getElementById("items-count-icon"),
   removeAllBtn: document.getElementById("delete-all-btn"),
   payBtn: document.getElementById("pay-btn"),
+  hasNewItem: false
 };
 
 const HTML_PRODUCTS = {
@@ -38,7 +41,8 @@ setAddProductEvent(HTML_PRODUCTS, PRODUCTS, CART);
 setRemoveProductEvent(HTML_CART, CART);
 setClearCartEvent(HTML_CART);
 setPayProductsEvent(HTML_CART, CART, SHOP_HISTORY, HTML_HISTORIAL);
-setHistoryEvent(HTML_HISTORY_BTN, SHOP_HISTORY, HTML_HISTORIAL);
+setShowHistoryEvent(HTML_HISTORY_BTN);
+setShowCartEvent(HTML_CART_BTN);
 
 // Creación de lista de productos a partir de JSON.
 function createProductsList(JSON) {
@@ -116,6 +120,7 @@ function setAddProductEvent(htmlList, productsList, shoppingCart) {
       const productID = Number(e.target.value);
       const product = productsList.find((item) => item.id === productID);
       shoppingCart.addItem(new CartItem(product, count));
+
       shoppingCart.renderHTML(HTML_CART);
     }
   }
@@ -129,7 +134,7 @@ function setRemoveProductEvent(htmlCart, shoppingCart) {
     if (e.target.className.includes("remove-btn")) {
       const productId = Number(e.target.value);
       shoppingCart.removeItem(productId);
-      shoppingCart.renderHTML(domCart);
+      shoppingCart.renderHTML(htmlCart);
     }
   }
 }
@@ -166,12 +171,20 @@ function setPayProductsEvent(
 }
 
 // Renderizado de Historial de Compras en HTML
-function setHistoryEvent(htmlButton, htmlHistorial) {
+function setShowHistoryEvent(htmlButton) {
   htmlButton.onclick = showHistory;
 
   function showHistory() {
-    htmlHistorial.container.classList.toggle("visible");
-    htmlHistorial.isOpen = !htmlHistorial.isOpen;
+    HTML_HISTORIAL.container.classList.toggle("visible");
+    HTML_HISTORIAL.isOpen = !HTML_HISTORIAL.isOpen;
+  }
+}
+
+function setShowCartEvent(htmlButton) {
+  htmlButton.onclick = showCart;
+
+  function showCart() {
+    HTML_CART.container.classList.toggle('visible');
   }
 }
 
