@@ -199,7 +199,7 @@ function clearCart() {
 
 // Actualizar ventana de Historial
 function updateHistoryView(domHistorial, historian) {
-  if (domHistorial.hasChange && domHistorial.isOpen) {
+  if (domHistorial.hasChange) {
     historian.renderLastHistory(domHistorial.container);
     domHistorial.hasChange = false;
   }
