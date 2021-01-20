@@ -49,7 +49,6 @@ class ShoppingCart {
   calculateTotal() {
     let total = 0;
     this.items.forEach(item => total += item.total);
-
     return total;
   }
 
@@ -61,43 +60,46 @@ class ShoppingCart {
     this.items = [];
   }
 
-  renderHTML(domCart) {
-
-    const total = this.calculateTotal();
-    const count = this.getItemsCount();
-    domCart.paymentInfo.textContent = "";
-
-    this.items.forEach(item => {
-      const trow = document.createElement('tr');
-      const nameCell = document.createElement('td');
-      const countCell = document.createElement('td');
-      const totalCell = document.createElement('td');
-      const btnCell = document.createElement('td');
-      const deleteBtn = document.createElement('button');
-
-      nameCell.textContent = item.product.name;
-      countCell.textContent = item.count;
-      totalCell.textContent = `$${item.total}`;
-
-      deleteBtn.classList.add('remove-btn', 'btn');
-      deleteBtn.value = item.product.id;
-      deleteBtn.textContent = "x";
-
-      btnCell.appendChild(deleteBtn);
-
-      trow.appendChild(nameCell);
-      trow.appendChild(countCell);
-      trow.appendChild(totalCell);
-      trow.appendChild(btnCell);
-
-      domCart.paymentInfo.appendChild(trow);
-    })
-
-    domCart.totalCount.textContent = `Total de elementos en carrito: ${count}`;
-    domCart.totalIcon.textContent = count > 0 ? count : "";
-    domCart.paymentTotal.textContent = `Total a pagar: $${total}`;
-
-
+  getItem(index) {
+    const [item] = this.items.slice(index);
+    return item || 0;
   }
+
+  renderItem(item) {
+
+    const tableRow = document.createElement('tr');
+    const nameCell = document.createElement('td');
+    const countCell = document.createElement('td');
+    const subtotalCell = document.createElement('td');
+    const buttonCell = document.createElement('td');
+
+    const deleteBtn = document.createElement('button');
+
+    nameCell.textContent = item.product.name;
+    nameCell.classList.add('item-name');
+
+    countCell.textContent = item.count;
+    countCell.classList.add('item-count');
+
+    subtotalCell.textContent = `$${item.total}`;
+    subtotalCell.classList.add('item-subtotal');
+
+    deleteBtn.value = item.product.id;
+    deleteBtn.classList.add('btn', 'remove-btn');
+    deleteBtn.textContent = 'x';
+    deleteBtn.title = "Eliminar producto";
+
+    buttonCell.appendChild(deleteBtn);
+
+    tableRow.id = `product-${item.product.id}`;
+    tableRow.appendChild(nameCell);
+    tableRow.appendChild(countCell);
+    tableRow.appendChild(subtotalCell);
+    tableRow.appendChild(buttonCell);
+
+    return tableRow;
+  }
+
+
 
 }

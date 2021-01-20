@@ -4,21 +4,19 @@
 <head>
   <title>simple e-commerce</title>
   <link rel="stylesheet" type="text/css" href="./src/css/main.css" />
-  <!-- Font Awesome icons (free version)-->
-  <script async src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
   <header>
-    <button title="Show buy history" aria-label="show history" id="history-btn" class="icon">
-      <i class="fas fa-history"></i>
+    <button value="historial" title="Mostrar historial de compras" aria-label="Mostrar historial de compras"
+      id="history-btn" class="icon">
+       ⌛
     </button>
 
-    <button title="Go to cart" aria-label="go to cart" id="cart-btn" class="icon">
-      <i class="fas fa-shopping-cart"></i>
-      <b id="items-count-icon"></b>
+    <button value="bill-container" title="Ir al carrito de compras" aria-label="Ir al carrito de compras" id="cart-btn"
+      class="icon">🛒<b id="items-count-icon"></b>
     </button>
 
   </header>
@@ -39,30 +37,32 @@
     </section>
 
     <section id="bill-container" class="cart container">
-      <h2 id="total-count">Total de elementos en carrito: 0</h2>
-      <table id="bill-payment">
+      <h2 class="title content-title mb-10" id="total-count">Total de elementos en carrito: 0</h2>
+
+      <table class="mb-10" id="bill-payment">
         <thead>
           <tr>
             <th scope="col">Item</th>
-            <th scope="col">Cantidad (Kg)</th>
+            <th scope="col">Kg</th>
             <th scope="col">Subtotal</th>
-            <th scope="col">Elminar Item</th>
+            <th scope="col"></th>
           </tr>
         </thead>
 
         <tbody id="payment-info"></tbody>
 
-        <tfoot>
-          <tr scope="row" id="payment-total"></tr>
-        </tfoot>
-
       </table>
 
-      <button id="delete-all-btn">Vaciar carrito</button>
-      <button id="pay-btn">Finalizar Compra</button>
+      <p class="mb-20" id="payment-total"></p>
+
+      <button class="button mb-10" id="pay-btn">Finalizar Compra</button>
+      <button class="button" id="delete-all-btn">Vaciar carrito</button>
+
     </section>
 
-    <section id="historial" class="container"></section>
+    <section id="historial" class="container">
+      <h2 class="title content-title mb-20">Historial de compras</h2>
+    </section>
   </main>
 
   <script src="./src/js/database.js"></script>

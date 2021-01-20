@@ -16,16 +16,21 @@ html {
   --earth-light-color: #f2e9e6;
   --green-life-color: #aeff99;
   --green-life-dark: #62b100;
+  --pink-color: #ffedf2;
   --main-color: rgb(60, 60, 60);
   --white-color: rgb(255, 255, 255);
-  --product-size: 25rem;
+  --product-size: 26rem;
   --gap: 1.5rem;
   --product-btn-size: 3rem;
   background-color: var(--earth-light-color);
 }
 
 .mb-20 {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
+}
+
+.mb-10 {
+  margin-bottom: 1rem;
 }
 
 header {
@@ -34,24 +39,19 @@ header {
   left: 0;
   width: 100%;
   z-index: 1024;
-  background-color: var(--main-color);
-  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  color: var(--white-color);
+  color: var(--earth-color);
+  background-color: var(--earth-light-color);
 }
 
 .icon {
   font-size: 3rem;
-  color: var(--white-color);
+  color: var(--earth-color);
   background-color: transparent;
   border: none;
   margin-right: 2rem;
-}
-
-.logo {
-  margin-left: 1rem;
 }
 
 /*Formulario de búsqueda*/
@@ -114,6 +114,10 @@ input[list="keywords"]:focus {
 .secondary-title {
   font-size: 3rem;
   text-transform: uppercase;
+}
+
+.content-title {
+  font-size: 2.5rem;
 }
 
 .product-caption {
@@ -257,19 +261,16 @@ main {
   font-weight: bolder;
 }
 
-
-
-
 #items-count-icon {
   position: absolute;
-  bottom: 0;
+  top: 1rem;
   background-color: var(--white-color);
-  color: var(--main-color);
+  color: var(--earth-color);
   font-weight: bolder;
   border-radius: 50%;
-  width: 1.6rem;
-  height: 1.6rem;
-  font-size: 1.6rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.5rem;
   text-align: center;
 }
 
@@ -281,15 +282,19 @@ main {
 
 #bill-payment {
   width: 100%;
+  border-collapse: collapse;
+  border-left: 0.2rem solid var(--earth-color);
+  border-right: 0.2rem solid var(--earth-color);
 }
 
 #bill-payment tr {
-  display: flex;
-  align-items: center;
   text-align: center;
   height: 4rem;
-  font-size: 1.6rem;
-  border: none;
+  font-size: 1.7rem;
+}
+
+#bill-payment td {
+  border-bottom: 0.2rem solid var(--earth-color);
 }
 
 #bill-payment thead {
@@ -301,7 +306,8 @@ main {
   background-color: var(--earth-light-color);
 }
 
-#bill-payment td, #bill-payment th {
+#bill-payment td,
+#bill-payment th {
   flex-basis: 25%;
 }
 
@@ -310,7 +316,6 @@ main {
 }
 
 .container {
-  position: fixed;
   transform: translateX(-50%);
   left: 50%;
   top: 5rem;
@@ -321,9 +326,8 @@ main {
   background-color: var(--white-color);
   visibility: hidden;
   position: absolute;
+  padding: 1rem;
 }
-
-
 
 details {
   text-align: center;
@@ -333,8 +337,52 @@ details {
   font-size: 1.5rem;
 }
 
+details ul {
+  list-style: none;
+}
+
 details li {
-  margin: 1rem 0;
+  line-height: 4rem;
+  height: 4rem;
+  margin-bottom: 0.5rem;
+}
+
+details li:hover {
+  background-color: var(--earth-light-color);
+}
+
+.button {
+  height: 4.5rem;
+  width: 15rem;
+  border: none;
+  font-weight: bold;
+  font-size: 1.3rem;
+  border-radius: 0.5rem;
+}
+
+#payment-total {
+  padding: 1rem;
+  font-size: 2rem;
+}
+
+#pay-btn {
+  background-color: var(--green-life-dark);
+  color: var(--white-color);
+}
+
+#pay-btn:hover {
+  background-color: var(--green-life-color);
+  color: var(--earth-color);
+}
+
+#delete-all-btn {
+  background-color: var(--earth-medium-color);
+  color: var(--white-color);
+}
+
+#delete-all-btn:hover {
+  background-color: var(--pink-color);
+  color: var(--earth-color);
 }
 
 @media (max-width: 600px) {

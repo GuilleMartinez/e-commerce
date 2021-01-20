@@ -78,5 +78,10 @@ class Historian {
         }
     }
 
+    removeHistorial () {
+        localStorage.clear();
+        this.historian = [];
+    }
+
 }
 
