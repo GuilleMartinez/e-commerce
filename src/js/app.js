@@ -12,6 +12,7 @@ const HTML_CART = {
   removeAllBtn: document.getElementById("delete-all-btn"),
   payBtn: document.getElementById("pay-btn"),
   showCartBtn: document.getElementById("cart-btn"),
+  closeCartBtn: document.getElementById('close-cart-btn'),
 
   updateRow(rowID, newRow) {
     const oldRow = document.getElementById(rowID);
@@ -42,7 +43,7 @@ const HTML_PRODUCTS = {
 const HTML_HISTORIAL = {
   container: document.getElementById("historial"),
   historyBtn: document.getElementById("history-btn"),
-  clearHistoryBtn: document.getElementById("history-btn"),
+  closeHistoryBtn: document.getElementById("close-history-btn"),
   hasChange: false,
 };
 
@@ -64,7 +65,10 @@ setClearCartEvent(HTML_CART);
 setPayProductsEvent(HTML_CART, CART, SHOP_HISTORY, HTML_HISTORIAL);
 
 setShowEvent(HTML_CART.showCartBtn);
+setShowEvent(HTML_CART.closeCartBtn);
 setShowEvent(HTML_HISTORIAL.historyBtn);
+setShowEvent(HTML_HISTORIAL.closeHistoryBtn);
+
 
 // Creación de lista de productos a partir de JSON.
 function createProductsList(JSON) {
@@ -232,7 +236,4 @@ function updateHistoryView(domHistorial, historian) {
 function showElement(event) {
   const element = document.getElementById(event.target.value);
   element.classList.toggle("visible");
-  // Ir al inicio del documento
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
 }

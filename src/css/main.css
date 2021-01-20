@@ -325,8 +325,10 @@ main {
   width: 80%;
   background-color: var(--white-color);
   visibility: hidden;
-  position: absolute;
+  position: fixed;
   padding: 1rem;
+  border: .3rem solid var(--earth-color);
+  border-radius: .5rem;
 }
 
 details {
@@ -381,6 +383,18 @@ details li:hover {
 }
 
 #delete-all-btn:hover {
+  background-color: var(--pink-color);
+  color: var(--earth-color);
+}
+
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+
+.close-btn:hover {
   background-color: var(--pink-color);
   color: var(--earth-color);
 }
