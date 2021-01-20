@@ -402,7 +402,7 @@ details li:hover {
 @media (max-width: 600px) {
   .main-title,
   #search-form,
-  .container.cart {
+  .container {
     width: 95%;
   }
 }
