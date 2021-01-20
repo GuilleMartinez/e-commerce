@@ -66,6 +66,7 @@ setPayProductsEvent(HTML_CART, CART, SHOP_HISTORY, HTML_HISTORIAL);
 
 setShowEvent(HTML_CART.showCartBtn);
 setShowEvent(HTML_CART.closeCartBtn);
+setShowEvent(HTML_CART.payBtn);
 setShowEvent(HTML_HISTORIAL.historyBtn);
 setShowEvent(HTML_HISTORIAL.closeHistoryBtn);
 
