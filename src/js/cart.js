@@ -24,7 +24,7 @@ class ShoppingCart {
   items = [];
 
   addItem(item) {
-    const index = this.searchItem(item.product.id);
+    const index = this.searchIndex(item.product.id);
     if (index < 0) {
       this.items.push(item);
     }
@@ -42,7 +42,7 @@ class ShoppingCart {
     this.items = itemsFiltered;
   }
 
-  searchItem(productID) {
+  searchIndex(productID) {
     return this.items.findIndex(item => item.product.id == productID);
   }
 
@@ -63,6 +63,10 @@ class ShoppingCart {
   getItem(index) {
     const [item] = this.items.slice(index);
     return item || 0;
+  }
+
+  itemExists(itemID) {
+    return this.searchIndex(itemID) >= 0;
   }
 
   renderItem(item) {

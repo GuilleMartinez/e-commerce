@@ -280,34 +280,34 @@ main {
   border: none;
 }
 
-#bill-payment {
+#cart-table {
   width: 100%;
   border-collapse: collapse;
   border-left: 0.2rem solid var(--earth-color);
   border-right: 0.2rem solid var(--earth-color);
 }
 
-#bill-payment tr {
+#cart-table tr {
   text-align: center;
   height: 4rem;
   font-size: 1.7rem;
 }
 
-#bill-payment td {
+#cart-table td {
   border-bottom: 0.2rem solid var(--earth-color);
 }
 
-#bill-payment thead {
+#cart-table thead {
   background-color: var(--earth-color);
   color: var(--white-color);
 }
 
-#payment-info tr:hover {
+#cart-info tr:nth-child(even) {
   background-color: var(--earth-light-color);
 }
 
-#bill-payment td,
-#bill-payment th {
+#cart-table td,
+#cart-table th {
   flex-basis: 25%;
 }
 
@@ -362,7 +362,7 @@ details li:hover {
   border-radius: 0.5rem;
 }
 
-#payment-total {
+#cart-total {
   padding: 1rem;
   font-size: 2rem;
 }

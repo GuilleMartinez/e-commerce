@@ -1,78 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>simple e-commerce</title>
+    <link rel="stylesheet" type="text/css" href="./src/css/main.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
 
-<head>
-  <title>simple e-commerce</title>
-  <link rel="stylesheet" type="text/css" href="./src/css/main.css" />
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
+  <body>
+    <header>
+      <button
+        value="historial"
+        title="Mostrar historial de compras"
+        aria-label="Mostrar historial de compras"
+        id="history-btn"
+        class="icon vision-btn"
+      >
+        ⌛
+      </button>
 
-<body>
-  <header>
-    <button value="historial" title="Mostrar historial de compras" aria-label="Mostrar historial de compras"
-      id="history-btn" class="icon">
-      ⌛
-    </button>
+      <button
+        value="cart-container"
+        title="Ir al carrito de compras"
+        aria-label="Ir al carrito de compras"
+        id="cart-btn"
+        class="icon vision-btn"
+      >
+        🛒<b id="items-count-icon">0</b>
+      </button>
+    </header>
 
-    <button value="bill-container" title="Ir al carrito de compras" aria-label="Ir al carrito de compras" id="cart-btn"
-      class="icon">🛒<b id="items-count-icon"></b>
-    </button>
+    <main>
+      <section class="search-section">
+        <h2 class="title main-title">¿Qué estás buscando?</h2>
 
-  </header>
+        <form id="search-form" autocomplete="off" action="#" method="POST">
+          <input
+            list="keywords"
+            type="search"
+            name="product-filter"
+            placeholder="banana, naranjas, mandarinas"
+          />
+          <datalist id="keywords"></datalist>
+        </form>
+      </section>
 
-  <main>
-    <section class="search-section">
-      <h2 class="title main-title">¿Qué estás buscando?</h2>
+      <section class="all-products">
+        <h2 class="title secondary-title mb-20">Nuestros productos</h2>
+        <ul id="products"></ul>
+      </section>
 
-      <form id="search-form" autocomplete="off" action="#" method="POST">
-        <input list="keywords" type="search" name="product-filter" placeholder="banana, naranjas, mandarinas" />
-        <datalist id="keywords"></datalist>
-      </form>
-    </section>
+      <section id="cart-container" class="cart container">
+        <h2 class="cart-title title content-title mb-10" id="total-count">
+          Productos en carrito: 0
+        </h2>
 
-    <section class="all-products">
-      <h2 class="title secondary-title mb-20">Nuestros productos</h2>
-      <ul id="products"></ul>
-    </section>
+        <table class="mb-10" id="cart-table">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">Kg</th>
+              <th scope="col">Subtotal</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
 
-    <section id="bill-container" class="cart container">
-      <h2 class="title content-title mb-10" id="total-count">Productos en carrito: 0</h2>
+          <tbody id="cart-info"></tbody>
+        </table>
 
-      <table class="mb-10" id="bill-payment">
-        <thead>
-          <tr>
-            <th scope="col">Item</th>
-            <th scope="col">Kg</th>
-            <th scope="col">Subtotal</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
+        <p class="mb-20" id="cart-total">Total a pagar: $0</p>
 
-        <tbody id="payment-info"></tbody>
+        <button value="cart-container" class="button mb-10 vision-btn" id="pay-btn">
+          Finalizar Compra
+        </button>
+        <button value="cart-container" class="button vision-btn" id="delete-all-btn">Vaciar carrito</button>
+        <button
+          value="cart-container"
+          title="Cerrar carrito de compras"
+          aria-label="Cerrar carrito de compras"
+          class="btn close-btn vision-btn"
+          id="close-cart-btn"
+        >
+          X
+        </button>
+      </section>
 
-      </table>
+      <section id="historial" class="container">
+        <h2 class="title content-title mb-20">Historial de compras</h2>
+        <button
+          value="historial"
+          title="Cerrar historial"
+          aria-label="Cerrar historial"
+          class="btn close-btn vision-btn"
+        >
+          X
+        </button>
+      </section>
+    </main>
 
-      <p class="mb-20" id="payment-total"></p>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
-      <button value="bill-container" class="button mb-10" id="pay-btn">Finalizar Compra</button>
-      <button class="button" id="delete-all-btn">Vaciar carrito</button>
-      <button value="bill-container" title="Cerrar carrito de compras" aria-label="Cerrar carrito de compras"
-        class="btn close-btn" id="close-cart-btn">X</button>
-    </section>
-
-    <section id="historial" class="container">
-      <h2 class="title content-title mb-20">Historial de compras</h2>
-      <button value="historial" title="Cerrar historial" aria-label="Cerrar historial" class="btn close-btn"
-        id="close-history-btn">X</button>
-    </section>
-  </main>
-
-  <script src="./src/js/database.js"></script>
-  <script src="./src/js/cart.js"></script>
-  <script src="./src/js/product.js"></script>
-  <script src="./src/js/historian.js"></script>
-  <script src="./src/js/app.js"></script>
-</body>
-
+    <script src="./src/js/database.js"></script>
+    <script src="./src/js/cart.js"></script>
+    <script src="./src/js/product.js"></script>
+    <script src="./src/js/historian.js"></script>
+    <script src="./src/js/dom.js"></script>
+    <script src="./src/js/app.js"></script>
+  </body>
 </html>

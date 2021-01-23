@@ -66,15 +66,15 @@ class Historian {
         return false;
     }
 
-    renderLastHistory(htmlcontainer) {
+    renderLastHistory(jqueryContainer) {
         const lastEntry = this.getLastEntry();
-        if (lastEntry) htmlcontainer.appendChild(this.createHtmlEntry(lastEntry));
+        if (lastEntry) jqueryContainer.append(this.createHtmlEntry(lastEntry));
     }
 
 
-    renderFullHistorial(htmlcontainer) {
+    renderFullHistorial(jqueryContainer) {
         for (const entry of this.historian) {
-            htmlcontainer.appendChild(this.createHtmlEntry(entry));
+            jqueryContainer.append(this.createHtmlEntry(entry));
         }
     }
 
