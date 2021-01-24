@@ -225,4 +225,19 @@ const DATABASE = [
     },
   },
 
+  {
+    id: 15,
+    name: "Melon",
+    description: "Melon",
+    category: "Fruta",
+    brand: "Engin Akyurt",
+    price: 150,
+    extra: {
+      hasDiscount: true,
+      discountValue: 0.1,
+      imgURL: "./src/img/frutas/melon.jpg",
+      keywords: "melon,melones,fruta,frutas",
+    },
+  }
+
 ];

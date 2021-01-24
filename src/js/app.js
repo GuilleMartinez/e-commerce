@@ -42,7 +42,7 @@ function createProductsList(database) {
   for (const data of database) {
     items.push(new Product(data));
   }
-  items.sort((a, b) => (a.category < b.category ? -1 : 1));
+  items.sort((a, b) => (a.name < b.name ? -1 : 1));
   return items;
 }
 
