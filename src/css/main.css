@@ -439,8 +439,11 @@ details p {
 
 @media (max-width: 600px) {
   .main-title,
-  #search-form,
-  .container {
+  #search-form {
     width: 95%;
+  }
+
+  .container {
+    width: 100%;
   }
 }
