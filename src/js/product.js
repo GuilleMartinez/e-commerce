@@ -71,7 +71,7 @@ class Product {
         itemCount.min = 1;
         itemCount.defaultValue = 1;
 
-        addBtn.classList.add("btn", "add-cart-btn");
+        addBtn.classList.add("add-cart-btn");
         addBtn.title = "Añadir al carrito";
         addBtn.textContent = "+";
         addBtn.value = this.id;

@@ -44,7 +44,7 @@ class Historian {
             const details = document.createElement("details");
             const summary = document.createElement("summary");
             const entryList = document.createElement("ul");
-            const totalSpan = document.createElement("span");
+            const totalP = document.createElement("p");
 
             for (const item of entry.data.items) {
                 const li = document.createElement("li");
@@ -56,10 +56,10 @@ class Historian {
             }
 
             summary.textContent = `Compra realizada - ${entry.time}`;
-            totalSpan.textContent = `Total: $${entry.data.total}`;
+            totalP.textContent = `Total: $${entry.data.total}`;
             details.appendChild(summary);
             details.appendChild(entryList);
-            details.appendChild(totalSpan);
+            details.appendChild(totalP);
 
             return details;
         }

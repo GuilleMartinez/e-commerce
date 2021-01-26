@@ -89,8 +89,8 @@ class ShoppingCart {
     subtotalCell.classList.add('item-subtotal');
 
     deleteBtn.value = item.product.id;
-    deleteBtn.classList.add('btn', 'remove-btn');
-    deleteBtn.textContent = 'x';
+    deleteBtn.classList.add('remove-btn');
+    deleteBtn.textContent = '➖';
     deleteBtn.title = "Eliminar producto";
 
     buttonCell.appendChild(deleteBtn);

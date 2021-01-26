@@ -1,5 +1,5 @@
 const HTML_CART = {
-    container: $("#cart-container"),
+    container: $("#cart .container"),
     cartTitle: $("#total-count"),
     cartInfo: $("#cart-info"),
     cartTotal: $("#cart-total"),
@@ -72,7 +72,7 @@ const HTML_FORM = {
 
 
 const HTML_HISTORIAL = {
-    container: $("#historial"),
+    container: $("#historial .container"),
     hasChange: false,
     
     updateHistoryView(historian) {

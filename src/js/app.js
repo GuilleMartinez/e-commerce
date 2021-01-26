@@ -32,8 +32,8 @@ HTML_CART.clearBtn.click(clearCartEvent);
 HTML_CART.payBtn.click(payEvent);
 
 // BUSQUEDA Y FILTRADO DE PRODUCTOS
-HTML_FORM.searchInput.on("input", filterProducts);
-HTML_FORM.form.submit(filterProducts);
+HTML_FORM.searchInput.on("input", filterEvent);
+HTML_FORM.form.submit(filterEvent);
 
 // ----------------------------------------------- // 
 
@@ -88,10 +88,12 @@ function clearCartEvent() {
 
 function showElement(event) {
   const target = $(event.target);
-  $(`#${target.val()}`).toggleClass('visible');
+  const container = $(`${target.val()}`);
+  container.toggleClass('invisible animate__bounceInRight')
+
 }
 
-function filterProducts(event) {
+function filterEvent(event) {
   event.preventDefault();
 
   const word = $(event.target).val();
