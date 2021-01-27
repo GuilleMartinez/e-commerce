@@ -203,6 +203,12 @@ main {
   background-color: var(--white-color);
 }
 
+.discount-amount {
+  animation: tada;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
 .product figure {
   display: block;
   width: var(--product-size);

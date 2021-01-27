@@ -66,6 +66,7 @@ function addItemEvent(event) {
       HTML_CART.insertRow(CART.renderItem(CART.getItem(-1)));
     }
 
+    
     HTML_CART.updateTable();
   }
 }

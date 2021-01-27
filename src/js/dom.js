@@ -25,7 +25,16 @@ const HTML_CART = {
         );
         this.cartTotal.text(`Total a pagar: $${CART.calculateTotal()}`);
         this.cartCountIcon.text(CART.getItemsCount());
+        this.animateIcon();
     },
+
+    animateIcon() {
+        if (CART.getItemsCount()) {
+            this.cartCountIcon.addClass('animate__animated animate__heartBeat animate__infinite');
+        } else {
+            this.cartCountIcon.removeClass('animate__animated animate__heartBeat animate__infinite')
+        }
+    }
 };
 
 const HTML_PRODUCTS = {
@@ -74,7 +83,7 @@ const HTML_FORM = {
 const HTML_HISTORIAL = {
     container: $("#historial .container"),
     hasChange: false,
-    
+
     updateHistoryView(historian) {
         if (this.hasChange) {
             historian.renderLastHistory(...this.container);
