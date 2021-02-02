@@ -1,5 +1,5 @@
 const PRODUCTS = {
-  list: createProductsList(DATABASE),
+  list: [],
 
   findProduct(id) {
     return this.list.find(item => item.id == id);
@@ -11,10 +11,25 @@ const SHOP_HISTORY = new Historian();
 
 // ----------------------------------------------- // 
 
+$.ajax(
+  {
+    url: "./src/js/database.json",
+    type: "GET",
+    dataType: "json",
+    success: JSON => PRODUCTS.list = createProductsList(JSON),
+    error: xhr => console.log(`Hubo un error al cargar los datos, Error: ${xhr.statusText}`),
+    complete: xhr => {
+      HTML_PRODUCTS.renderProductsList(PRODUCTS.list);
+      console.log(`Productos cargados correctamente, Estado: ${xhr.statusText}`)
+    }
+  }
+)
+
+
 // --- RENDERIZADO HTML --- //
 SHOP_HISTORY.renderFullHistorial(HTML_HISTORIAL.container);
 HTML_FORM.appendKeywords(PRODUCTS.list);
-HTML_PRODUCTS.renderProductsList(PRODUCTS.list);
+
 
 // ----------------------------------------------- // 
 
@@ -66,7 +81,7 @@ function addItemEvent(event) {
       HTML_CART.insertRow(CART.renderItem(CART.getItem(-1)));
     }
 
-    
+
     HTML_CART.updateTable();
   }
 }
@@ -90,8 +105,7 @@ function clearCartEvent() {
 function showElement(event) {
   const target = $(event.target);
   const container = $(`${target.val()}`);
-  container.toggleClass('invisible animate__bounceInRight')
-
+  container.toggleClass('invisible animate__slideInDown');
 }
 
 function filterEvent(event) {

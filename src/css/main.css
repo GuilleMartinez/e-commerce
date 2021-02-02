@@ -103,13 +103,13 @@ main {
   border: 0.3rem solid var(--earth-color);
   padding: 1rem;
   border-radius: 0.5rem;
+  opacity: 1;
+  transition: opacity .7s ease;
 }
 
 .animation-wrapper.invisible {
   opacity: 0;
   visibility: hidden;
-  display: none;
-  z-index: 1280;
 }
 
 .icon {
