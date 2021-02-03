@@ -2,55 +2,52 @@ const PRODUCTS = {
   list: [],
 
   findProduct(id) {
-    return this.list.find(item => item.id == id);
-  }
-}
+    return this.list.find((item) => item.id == id);
+  },
+};
 
 const CART = new ShoppingCart();
 const SHOP_HISTORY = new Historian();
 
-// ----------------------------------------------- // 
+// ----------------------------------------------- //
 
-$.ajax(
-  {
-    url: "./src/js/database.json",
-    type: "GET",
-    dataType: "json",
-    success: JSON => PRODUCTS.list = createProductsList(JSON),
-    error: xhr => console.log(`Hubo un error al cargar los datos, Error: ${xhr.statusText}`),
-    complete: xhr => {
-      HTML_PRODUCTS.renderProductsList(PRODUCTS.list);
-      console.log(`Productos cargados correctamente, Estado: ${xhr.statusText}`)
-    }
-  }
-)
+$.ajax({
+  url: "./src/js/database.json",
+  type: "GET",
+  dataType: "json",
+  success: (JSON) => {
+    PRODUCTS.list = createProductsList(JSON);
+    HTML_PRODUCTS.renderProductsList(PRODUCTS.list);
+    SHOP_HISTORY.renderFullHistorial(HTML_HISTORIAL.container);
+    HTML_FORM.appendKeywords(PRODUCTS.list);
+    successLog("Productos cargados correctamente 😁");
+  },
+  error: (xhr) =>
+    errorLog(`Hubo un error al cargar los datos, Error: ${xhr.statusText} 😟`),
+});
 
+// ---------------------------- EVENTOS ------------------------ //
 
-// --- RENDERIZADO HTML --- //
-SHOP_HISTORY.renderFullHistorial(HTML_HISTORIAL.container);
-HTML_FORM.appendKeywords(PRODUCTS.list);
-
-
-// ----------------------------------------------- // 
-
-// ---- SETEO DE EVENTOS --- // 
-
-// BOTONES DE MOSTRAR Y CERRAR VENTANAS
+// BOTONES DE MOSTRAR Y CERRAR VENTANAS //
 $(".vision-btn").click(showElement);
 
-// AGREGAR PRODUCTOS AL CARRITO
+// AGREGAR PRODUCTOS AL CARRITO //
 HTML_PRODUCTS.productsList.click(addItemEvent);
 
-// ABM DE PRODUCTOS EN CARRITO
+// QUITAR PRODUCTOS DEL CARRITO //
 HTML_CART.container.click(removeItemEvent);
 HTML_CART.clearBtn.click(clearCartEvent);
+
+// REALIZAR PAGO //
 HTML_CART.payBtn.click(payEvent);
 
-// BUSQUEDA Y FILTRADO DE PRODUCTOS
+// BUSQUEDA Y FILTRADO DE PRODUCTOS //
 HTML_FORM.searchInput.on("input", filterEvent);
 HTML_FORM.form.submit(filterEvent);
 
-// ----------------------------------------------- // 
+// ------------------------------------------------------------ //
+
+// ---------------------------- FUNCIONES DE EVENTOS ------------------------ //
 
 function createProductsList(database) {
   const items = [];
@@ -61,11 +58,9 @@ function createProductsList(database) {
   return items;
 }
 
-
 function addItemEvent(event) {
   const target = $(event.target);
-  if (target.hasClass('add-cart-btn')) {
-
+  if (target.hasClass("add-cart-btn")) {
     const productID = Number(target.val());
     const productCount = Number(target.prev().val());
 
@@ -73,14 +68,12 @@ function addItemEvent(event) {
       const index = CART.searchIndex(productID);
       const item = CART.getItem(index);
       CART.updateItem(index, productCount);
-      HTML_CART.updateRow(item.product.id, CART.renderItem(item))
-
+      HTML_CART.updateRow(item.product.id, CART.renderItem(item));
     } else {
       const selectedProduct = PRODUCTS.findProduct(productID);
       CART.addItem(new CartItem(selectedProduct, productCount));
       HTML_CART.insertRow(CART.renderItem(CART.getItem(-1)));
     }
-
 
     HTML_CART.updateTable();
   }
@@ -88,7 +81,7 @@ function addItemEvent(event) {
 
 function removeItemEvent(event) {
   const target = $(event.target);
-  if (target.hasClass('remove-btn')) {
+  if (target.hasClass("remove-btn")) {
     const productID = Number(target.val());
     CART.removeItem(productID);
     HTML_CART.deleteRow(productID);
@@ -98,21 +91,23 @@ function removeItemEvent(event) {
 
 function clearCartEvent() {
   CART.removeAll();
-  HTML_CART.cartInfo.children().remove();
+  HTML_CART.clearTable();
   HTML_CART.updateTable();
 }
 
 function showElement(event) {
   const target = $(event.target);
   const container = $(`${target.val()}`);
-  container.toggleClass('invisible animate__slideInDown');
+  container.toggleClass("invisible animate__slideInDown");
 }
 
 function filterEvent(event) {
   event.preventDefault();
 
   const word = $(event.target).val();
-  const filteredProducts = PRODUCTS.list.filter(product => product.keywords.includes(word));
+  const filteredProducts = PRODUCTS.list.filter((product) =>
+    product.keywords.includes(word)
+  );
 
   if (filteredProducts.length && word) {
     HTML_PRODUCTS.renderProductsList(filteredProducts);
@@ -121,21 +116,44 @@ function filterEvent(event) {
     HTML_PRODUCTS.renderProductsList(PRODUCTS.list);
     HTML_PRODUCTS.isFiltered = false;
   }
-
 }
 
 function payEvent() {
   if (CART.getItemsCount()) {
     const newHistory = new HistoryTag({
       items: CART.items,
-      total: CART.calculateTotal()
-    })
+      total: CART.calculateTotal(),
+    });
 
     SHOP_HISTORY.addNewBuy(newHistory.getHistorial());
     SHOP_HISTORY.saveHistory();
     HTML_HISTORIAL.hasChange = true;
     HTML_HISTORIAL.updateHistoryView(SHOP_HISTORY);
-    alert('Muchas gracias por su compra! 😊');
+    alert("Muchas gracias por su compra! 😊");
     clearCartEvent();
   }
 }
+
+// ------------------------------------------------------------ //
+
+// ---------------------------- ANIMACIONES Y LOGS ------------------------ //
+
+function successLog(msg) {
+  console.log(
+    `%c${msg}`,
+    "background-color: #00ff00 ; color: #00; padding: 4px; font-weight: bold;"
+  );
+}
+
+function errorLog(msg) {
+  console.log(
+    `%c${msg}`,
+    "background-color: #FF9494 ; color: #ff; padding: 4px; font-weight: bold;"
+  );
+}
+
+function deleteAnimation(element) {
+  element.fadeOut("fast", () => element.remove());
+}
+
+// ------------------------------------------------------------ //
