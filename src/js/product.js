@@ -12,7 +12,7 @@ class Product {
         this.discountPrice = this.hasDiscount
             ? this.price - this.price * this.discountValue
             : 0;
-        this.keywords = product.extra.keywords.split(',');
+        this.keywords = product.extra.keywords.split(",");
     }
 
     renderHTML() {
@@ -83,7 +83,7 @@ class Product {
             .text("+");
 
         $(buttons)
-            .addClass('buttons')
+            .addClass("buttons")
             .append(itemCount, addBtn);
 
         $(productInfo)

@@ -355,14 +355,13 @@ details {
   font-size: small;
   background-color: var(--white-color);
   border-radius: 1rem;
-  border: .1rem solid var(--earth-medium-color);
-  padding: .5rem;
-  transition: all .3s ease-out;
+  border: 0.1rem solid var(--earth-medium-color);
+  padding: 0.5rem;
+  transition: all 0.3s ease-out;
 }
 
-
 summary {
-  padding: .5rem;
+  padding: 0.5rem;
   outline-color: var(--earth-medium-color);
 }
 
@@ -370,7 +369,6 @@ details[open] {
   font-size: medium;
   padding: 1rem;
 }
-
 
 details ul {
   font-style: normal;
@@ -380,7 +378,7 @@ details ul {
 details li {
   line-height: 3rem;
   height: 3rem;
-  margin: .5rem 0;
+  margin: 0.5rem 0;
 }
 
 details p {
@@ -462,9 +460,23 @@ details p {
   color: var(--earth-color);
 }
 
+.update-btn {
+  width: 3rem;
+  margin: 0 0.5rem;
+  border: 0.1rem solid var(--earth-color);
+  background-color: var(--white-color);
+  border-radius: 1rem;
+  padding: 0.2rem;
+  outline: none;
+}
+
+.update-btn:hover {
+  background-color: var(--green-life-color);
+}
+
 /* MEDIA QUERIES */
 
-@media (max-width: 600px) {
+@media (max-width: 750px) {
   .main-title,
   #search-form {
     width: 95%;
@@ -473,7 +485,15 @@ details p {
   .animation-wrapper {
     width: 100%;
     left: 0;
-    padding: .5rem;
+    padding: 0.5rem;
   }
 
+  .update-btn {
+    width: 28%;
+    margin: 0 0.3rem;
+  }
+
+  details {
+    width: 90%;
+  }
 }

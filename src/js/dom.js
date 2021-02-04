@@ -76,7 +76,6 @@ const HTML_FORM = {
     for (const product of products) {
       words.push(...product.keywords);
     }
-    words.sort((a, b) => (a < b ? -1 : 1));
     return new Set(words);
   },
 
@@ -85,7 +84,7 @@ const HTML_FORM = {
 
     for (const word of keywords) {
       const option = document.createElement("option");
-      option.value = word;
+      $(option).prop("value", word);
       this.datalist.append(option);
     }
   },

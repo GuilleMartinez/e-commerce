@@ -38,12 +38,17 @@ HTML_PRODUCTS.productsList.click(addItemEvent);
 HTML_CART.container.click(removeItemEvent);
 HTML_CART.clearBtn.click(clearCartEvent);
 
+// ACTUALIZAR CANTIDADES EN CARRITO // 
+HTML_CART.cartInfo.click(updateValues);
+
 // REALIZAR PAGO //
 HTML_CART.payBtn.click(payEvent);
 
 // BUSQUEDA Y FILTRADO DE PRODUCTOS //
 HTML_FORM.searchInput.on("input", filterEvent);
 HTML_FORM.form.submit(filterEvent);
+
+
 
 // ------------------------------------------------------------ //
 
@@ -54,7 +59,6 @@ function createProductsList(database) {
   for (const data of database) {
     items.push(new Product(data));
   }
-  items.sort((a, b) => (a.name < b.name ? -1 : 1));
   return items;
 }
 
@@ -62,7 +66,7 @@ function addItemEvent(event) {
   const target = $(event.target);
   if (target.hasClass("add-cart-btn")) {
     const productID = Number(target.val());
-    const productCount = Number(target.prev().val());
+    const productCount = Number(target.prev().val()) || 1;
 
     if (CART.itemExists(productID)) {
       const index = CART.searchIndex(productID);
@@ -89,12 +93,6 @@ function removeItemEvent(event) {
   }
 }
 
-function clearCartEvent() {
-  CART.removeAll();
-  HTML_CART.clearTable();
-  HTML_CART.updateTable();
-}
-
 function showElement(event) {
   const target = $(event.target);
   const container = $(`${target.val()}`);
@@ -118,6 +116,28 @@ function filterEvent(event) {
   }
 }
 
+function updateValues(event) {
+  const target = $(event.target);
+
+  if (target.hasClass("update-btn")) {
+
+    const productId = target.parents("tr").attr("id").slice(8);
+    const productIndex = CART.searchIndex(productId);
+    const product = CART.getItem(productIndex);
+    const newValue = Number(target.val());
+
+    if (product.count - 1 > 0 && target.hasClass("decrement-btn")) {
+      CART.updateItem(productIndex, product.count - newValue);
+    } else if (target.hasClass("increment-btn")) {
+      CART.updateItem(productIndex, product.count + newValue);
+    }
+
+    HTML_CART.updateRow(productId, CART.renderItem(product));
+    HTML_CART.updateTable();
+
+  }
+}
+
 function payEvent() {
   if (CART.getItemsCount()) {
     const newHistory = new HistoryTag({
@@ -132,6 +152,12 @@ function payEvent() {
     alert("Muchas gracias por su compra! 😊");
     clearCartEvent();
   }
+}
+
+function clearCartEvent() {
+  CART.removeAll();
+  HTML_CART.clearTable();
+  HTML_CART.updateTable();
 }
 
 // ------------------------------------------------------------ //
@@ -157,3 +183,4 @@ function deleteAnimation(element) {
 }
 
 // ------------------------------------------------------------ //
+

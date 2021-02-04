@@ -59,7 +59,7 @@ class Historian {
                 $(entryList).append(li);
             }
 
-            $(summary).text(`Compra realizada - ${entry.time}`);
+            $(summary).text(`Compra - ${entry.time}`);
             $(totalP).text(`Total: $${entry.data.total}`);
             $(details).append(summary, entryList, totalP);
 

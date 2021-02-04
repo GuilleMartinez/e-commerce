@@ -70,29 +70,44 @@ class ShoppingCart {
   }
 
   renderItem(item) {
-
-    const tableRow = document.createElement('tr');
-    const nameCell = document.createElement('td');
-    const countCell = document.createElement('td');
-    const subtotalCell = document.createElement('td');
-    const buttonCell = document.createElement('td');
-    const deleteBtn = document.createElement('button');
+    const tableRow = document.createElement("tr");
+    const nameCell = document.createElement("td");
+    const countCell = document.createElement("td");
+    const subtotalCell = document.createElement("td");
+    const buttonCell = document.createElement("td");
+    const deleteBtn = document.createElement("button");
+    const incrementBtn = document.createElement("button");
+    const decrementBtn = document.createElement("button");
+    const countSpan = document.createElement("span");
 
     $(nameCell)
-      .addClass('item-name')
+      .addClass("item-name")
       .text(item.product.name);
 
+    $(decrementBtn)
+      .addClass("update-btn decrement-btn")
+      .text("➖")
+      .prop("title", "Decrementar cantidad")
+      .prop("value", 1);
+
+    $(incrementBtn)
+      .addClass("update-btn increment-btn")
+      .text("➕")
+      .prop("title", "Incrementar cantidad")
+      .prop("value", 1);
+
+    $(countSpan).text(item.count);
+
     $(countCell)
-      .addClass('item-count')
-      .text(item.count);
+      .addClass("item-count")
+      .append(decrementBtn, countSpan, incrementBtn);
 
     $(subtotalCell)
-      .addClass('item-subtotal')
+      .addClass("item-subtotal")
       .text(`$${item.total}`);
 
-
     $(deleteBtn)
-      .addClass('remove-btn')
+      .addClass("remove-btn")
       .prop("value", item.product.id)
       .prop("title", "Eliminar producto")
       .text("🗑")
