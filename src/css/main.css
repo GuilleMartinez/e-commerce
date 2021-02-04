@@ -344,21 +344,31 @@ main {
 
 /* HISTORIAL */
 
+#historial {
+  background-color: var(--earth-light-color);
+}
+
 details {
   text-align: center;
   width: max-content;
   margin-bottom: 2rem;
-  font-size: 1.6rem;
+  font-size: small;
+  background-color: var(--white-color);
+  border-radius: 1rem;
+  border: .1rem solid var(--earth-medium-color);
+  padding: .5rem;
   transition: all .3s ease-out;
 }
 
 
+summary {
+  padding: .5rem;
+  outline-color: var(--earth-medium-color);
+}
+
 details[open] {
-  font-size: 1.7rem;
-  background-color: var(--earth-light-color);
+  font-size: medium;
   padding: 1rem;
-  border-radius: 1rem;
-  border: .1rem solid var(--earth-medium-color);
 }
 
 
@@ -408,8 +418,9 @@ details p {
 
 .remove-btn {
   background-color: transparent;
-  font-size: 2rem;
-  line-height: 2rem;
+  font-size: 2.1rem;
+  line-height: 2.1rem;
+  font-weight: bold;
 }
 
 .close-btn {

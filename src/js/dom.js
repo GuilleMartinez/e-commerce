@@ -56,7 +56,7 @@ const HTML_PRODUCTS = {
     // Creacion de Productos en HTML
     for (const product of products) {
       const li = document.createElement("li");
-      li.appendChild(product.renderHTML());
+      $(li).append(product.renderHTML());
       this.productsList.append(li);
     }
   },

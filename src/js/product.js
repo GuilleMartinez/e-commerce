@@ -27,64 +27,72 @@ class Product {
         const itemCount = document.createElement("input");
         const addBtn = document.createElement("button");
 
-        container.classList.add("product");
+        $(productImg)
+            .addClass("product-img")
+            .prop("alt", this.description)
+            .prop("src", this.imgURL);
 
-        productImg.classList.add("product-img");
-        productImg.alt = this.description;
-        productImg.src = this.imgURL;
+        $(productCaption)
+            .addClass("product-caption")
+            .text(`${this.name} x Kg`);
 
-        productCaption.classList.add("product-caption");
-        productCaption.textContent = `${this.name} x Kg`
-
-        figure.appendChild(productImg);
-        figure.appendChild(productCaption);
-
-        productInfo.classList.add("product-info");
-
-        prices.classList.add("prices");
+        $(figure).append(productImg, productCaption);
 
         if (this.hasDiscount) {
+
             const price = document.createElement("del");
             const discountPrice = document.createElement("b");
 
-            discount.classList.add("discount-amount");
-            discount.textContent = `-${this.discountValue * 100}%`;
+            $(discount)
+                .addClass("discount-amount")
+                .text(`-${this.discountValue * 100}%`);
 
-            price.classList.add("product-price");
-            price.textContent = `${this.price}$`
+            $(price)
+                .addClass("product-price")
+                .text(`${this.price}$`);
 
-            discountPrice.classList.add("product-price");
-            discountPrice.textContent = `${this.discountPrice}$`;
+            $(discountPrice)
+                .addClass("product-price")
+                .text(`${this.discountPrice}$`);
 
-            prices.appendChild(price);
-            prices.appendChild(discountPrice);
-            productInfo.appendChild(discount);
+            $(prices).append(price, discountPrice);
+            $(productInfo).append(discount);
+
         } else {
             const price = document.createElement("b");
-            prices.classList.add("product-price");
-            price.textContent = `${this.price}$`;
-            prices.appendChild(price);
+
+            $(price)
+                .addClass("product-price")
+                .text(`${this.price}$`);
+
+            $(prices).append(price);
         }
 
-        itemCount.classList.add("item-count");
-        itemCount.type = "number";
-        itemCount.min = 1;
-        itemCount.defaultValue = 1;
+        $(prices).addClass("prices");
 
-        addBtn.classList.add("add-cart-btn");
-        addBtn.title = "Añadir al carrito";
-        addBtn.textContent = "+";
-        addBtn.value = this.id;
+        $(itemCount)
+            .addClass("item-count")
+            .prop("type", "number")
+            .prop("min", 1)
+            .prop("value", 1)
 
-        buttons.classList.add("buttons");
-        buttons.appendChild(itemCount);
-        buttons.appendChild(addBtn);
+        $(addBtn)
+            .addClass("add-cart-btn")
+            .prop("title", "Añadir al carrito")
+            .prop("value", this.id)
+            .text("+");
 
-        productInfo.appendChild(prices);
-        productInfo.appendChild(buttons);
+        $(buttons)
+            .addClass('buttons')
+            .append(itemCount, addBtn);
 
-        container.appendChild(figure);
-        container.appendChild(productInfo);
+        $(productInfo)
+            .addClass("product-info")
+            .append(prices, buttons);
+
+        $(container)
+            .addClass("product")
+            .append(figure, productInfo);
 
         return container;
     }

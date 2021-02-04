@@ -48,18 +48,20 @@ class Historian {
 
             for (const item of entry.data.items) {
                 const li = document.createElement("li");
-                li.textContent = `${item.product.name} x ${item.count}Kg - $${item.product.hasDiscount
-                    ? item.product.discountPrice * item.count
-                    : item.product.price * item.count
-                    }`;
-                entryList.appendChild(li);
+
+                $(li).text(
+                    `${item.product.name} x ${item.count}Kg - $${item.product.hasDiscount
+                        ? item.product.discountPrice * item.count
+                        : item.product.price * item.count
+                    }`
+                );
+
+                $(entryList).append(li);
             }
 
-            summary.textContent = `Compra realizada - ${entry.time}`;
-            totalP.textContent = `Total: $${entry.data.total}`;
-            details.appendChild(summary);
-            details.appendChild(entryList);
-            details.appendChild(totalP);
+            $(summary).text(`Compra realizada - ${entry.time}`);
+            $(totalP).text(`Total: $${entry.data.total}`);
+            $(details).append(summary, entryList, totalP);
 
             return details;
         }
@@ -71,17 +73,14 @@ class Historian {
         if (lastEntry) jqueryContainer.append(this.createHtmlEntry(lastEntry));
     }
 
-
     renderFullHistorial(jqueryContainer) {
         for (const entry of this.historian) {
             jqueryContainer.append(this.createHtmlEntry(entry));
         }
     }
 
-    removeHistorial () {
+    removeHistorial() {
         localStorage.clear();
         this.historian = [];
     }
-
 }
-
