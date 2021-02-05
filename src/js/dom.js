@@ -92,6 +92,7 @@ const HTML_FORM = {
 
 const HTML_HISTORIAL = {
   container: $("#historial .container"),
+  removeBtn: $("#delete-history-btn"),
   hasChange: false,
 
   updateHistoryView(historian) {
@@ -100,4 +101,9 @@ const HTML_HISTORIAL = {
       this.hasChange = false;
     }
   },
+
+  clearHistory() {
+    const details = this.container.children("details")
+    deleteAnimation(details);
+  }
 };

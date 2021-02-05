@@ -39,7 +39,7 @@ HTML_CART.container.click(removeItemEvent);
 HTML_CART.clearBtn.click(clearCartEvent);
 
 // ACTUALIZAR CANTIDADES EN CARRITO // 
-HTML_CART.cartInfo.click(updateValues);
+HTML_CART.cartInfo.click(updateProductEvent);
 
 // REALIZAR PAGO //
 HTML_CART.payBtn.click(payEvent);
@@ -48,6 +48,8 @@ HTML_CART.payBtn.click(payEvent);
 HTML_FORM.searchInput.on("input", filterEvent);
 HTML_FORM.form.submit(filterEvent);
 
+// ELIMINAR HISTORIAL DE COMPRAS // 
+HTML_HISTORIAL.removeBtn.click(deleteHistoryEvent);
 
 
 // ------------------------------------------------------------ //
@@ -116,7 +118,7 @@ function filterEvent(event) {
   }
 }
 
-function updateValues(event) {
+function updateProductEvent(event) {
   const target = $(event.target);
 
   if (target.hasClass("update-btn")) {
@@ -158,6 +160,11 @@ function clearCartEvent() {
   CART.removeAll();
   HTML_CART.clearTable();
   HTML_CART.updateTable();
+}
+
+function deleteHistoryEvent() {
+  SHOP_HISTORY.removeHistorial();
+  HTML_HISTORIAL.clearHistory();
 }
 
 // ------------------------------------------------------------ //
