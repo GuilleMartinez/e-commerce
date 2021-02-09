@@ -4,6 +4,10 @@ const PRODUCTS = {
   findProduct(id) {
     return this.list.find((item) => item.id == id);
   },
+
+  filterProducts(keyword) {
+    return this.list.filter((product) => product.keywords.includes(keyword));
+  },
 };
 
 const CART = new ShoppingCart();
@@ -38,7 +42,7 @@ HTML_PRODUCTS.productsList.click(addItemEvent);
 HTML_CART.container.click(removeItemEvent);
 HTML_CART.clearBtn.click(clearCartEvent);
 
-// ACTUALIZAR CANTIDADES EN CARRITO // 
+// ACTUALIZAR CANTIDADES EN CARRITO //
 HTML_CART.cartInfo.click(updateProductEvent);
 
 // REALIZAR PAGO //
@@ -46,11 +50,10 @@ HTML_CART.payBtn.click(payEvent);
 
 // BUSQUEDA Y FILTRADO DE PRODUCTOS //
 HTML_FORM.searchInput.on("input", filterEvent);
-HTML_FORM.form.submit(filterEvent);
+HTML_FORM.form.submit(cancelSubmit);
 
-// ELIMINAR HISTORIAL DE COMPRAS // 
+// ELIMINAR HISTORIAL DE COMPRAS //
 HTML_HISTORIAL.removeBtn.click(deleteHistoryEvent);
-
 
 // ------------------------------------------------------------ //
 
@@ -105,9 +108,7 @@ function filterEvent(event) {
   event.preventDefault();
 
   const word = $(event.target).val();
-  const filteredProducts = PRODUCTS.list.filter((product) =>
-    product.keywords.includes(word)
-  );
+  const filteredProducts = PRODUCTS.filterProducts(word);
 
   if (filteredProducts.length && word) {
     HTML_PRODUCTS.renderProductsList(filteredProducts);
@@ -122,7 +123,6 @@ function updateProductEvent(event) {
   const target = $(event.target);
 
   if (target.hasClass("update-btn")) {
-
     const productId = target.parents("tr").attr("id").slice(8);
     const productIndex = CART.searchIndex(productId);
     const product = CART.getItem(productIndex);
@@ -136,7 +136,6 @@ function updateProductEvent(event) {
 
     HTML_CART.updateRow(productId, CART.renderItem(product));
     HTML_CART.updateTable();
-
   }
 }
 
@@ -167,6 +166,9 @@ function deleteHistoryEvent() {
   HTML_HISTORIAL.clearHistory();
 }
 
+function cancelSubmit(event) {
+  event.preventDefault();
+}
 // ------------------------------------------------------------ //
 
 // ---------------------------- ANIMACIONES Y LOGS ------------------------ //
@@ -190,4 +192,3 @@ function deleteAnimation(element) {
 }
 
 // ------------------------------------------------------------ //
-
